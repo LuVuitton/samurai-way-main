@@ -44,6 +44,16 @@ export const initialState: InitialStateType = {
         ]
     }
 }
+type SubscriberType = any
+type RerenderType = any
+let rerender: RerenderType = ()=>{}
+export let subscriber: SubscriberType = (observer:any)=>{
+    rerender = observer
+}
+
+
+
+
 
 
 

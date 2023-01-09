@@ -6,7 +6,7 @@ import Profile from "./Profile/Profile";
 import sApp from "./App.module.css"
 import Dialogues from "./Dialogues/Dialogues";
 import {BrowserRouter, Route} from "react-router-dom";
-import {initialState, OnePostType} from "./InitialState";
+import {initialState, OnePostType, subscriber} from "./InitialState";
 
 const App = () => {
 
@@ -16,6 +16,7 @@ const App = () => {
         mainState.posts.push({id:dataPost.id, time:dataPost.time, text:dataPost.text}) //почему не можем пушить
         setMainState({...mainState})
     }
+
 
     return (
         <BrowserRouter>
@@ -30,7 +31,9 @@ const App = () => {
                 <Route path='/DialogItem' render={()=><Dialogues messenger={mainState.messenger}/>}/>
                 <Route path='/Profile' render={()=><Profile addPost={addPost} posts={mainState.posts}/>}/>
                 </div>
-                {/*<button onClick={addPost}>X</button>*/}
+                <button onClick={()=> {
+                    subscriber(setMainState)
+                }}>rerender tree test</button>
             </div>
         </BrowserRouter>
     );

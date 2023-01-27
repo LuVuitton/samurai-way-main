@@ -67,7 +67,8 @@ export const addPost: AddPostType = () => {
     rerenderAllTree()
 }
 
-let rerenderAllTree=()=>{};
+let rerenderAllTree=()=>{
+    console.log('test commit')};
 
 export const subscriber = (observer:()=>void)=> {
     rerenderAllTree = observer

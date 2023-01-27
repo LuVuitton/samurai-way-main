@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.module.css';
 import Header from "./Header/Header";
 import NavBar from "./NavBar/NavBar";
@@ -6,20 +6,21 @@ import Profile from "./Profile/Profile";
 import sApp from "./App.module.css"
 import Dialogues from "./Dialogues/Dialogues";
 import {BrowserRouter, Route} from "react-router-dom";
-import {initialState, OnePostType, subscriber} from "./InitialState";
+import {AddPostType, StateType, updateInputValueType} from "./State";
 
-const App = () => {
 
-    const [mainState, setMainState] = useState(initialState)
+type AppPropsType = {
+    state: StateType,
+    addPost: AddPostType,
+    updateInputValue: updateInputValueType
+}
 
-    const addPost =(dataPost: OnePostType)=>{
-        mainState.posts.push({id:dataPost.id, time:dataPost.time, text:dataPost.text}) //почему не можем пушить
-        setMainState({...mainState})
-    }
+const App = (props: AppPropsType) => {
 
 
     return (
         <BrowserRouter>
+
             <div className={sApp.mainWrapper}>
                 <div className={sApp.header}>
                     <Header/>
@@ -28,14 +29,13 @@ const App = () => {
                     <NavBar/>
                 </div>
                 <div className={sApp.profile}>
-                <Route path='/DialogItem' render={()=><Dialogues messenger={mainState.messenger}/>}/>
-                <Route path='/Profile' render={()=><Profile addPost={addPost} posts={mainState.posts}/>}/>
+                    <Route path='/DialogItem' render={() => <Dialogues messenger={props.state.messenger}/>}/>
+                    <Route path='/Profile' render={() => <Profile addPost={props.addPost} profile={props.state.profile} updateInputValue={props.updateInputValue}/>}/>
                 </div>
-                <button onClick={()=> {
-                    subscriber(setMainState)
-                }}>rerender tree test</button>
             </div>
+
         </BrowserRouter>
+
     );
 }
 

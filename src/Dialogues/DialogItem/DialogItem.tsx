@@ -1,19 +1,13 @@
 import React from 'react';
-import {DialogueItemType} from "../../InitialState";
+import {DialogueItemType} from "../../State";
 
-type PropsType ={
+type DialogItemPropsType ={
     dialogItem: DialogueItemType
 }
-const DialogItem = (props: PropsType) => {
+const DialogItem = (props: DialogItemPropsType) => {
     return (
         <div>
-            <div>DialogItem</div>
-            <div>DialogItem</div>
-            <div>DialogItem</div>
-            <div>DialogItem</div>
-            <div>DialogItem</div>
-            <div>DialogItem</div>
-            <div>DialogItem</div>
+            {props.dialogItem.map(e=> <div key={e.id}>{e.userName}</div>)}
         </div>
     );
 }

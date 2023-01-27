@@ -1,7 +1,7 @@
 import React from 'react';
 
 type PropsType = {
-    text: string
+    text: string | undefined
     time: string
 }
 const Post = (props: PropsType) => {

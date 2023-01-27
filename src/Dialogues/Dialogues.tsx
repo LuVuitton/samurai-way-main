@@ -1,7 +1,7 @@
 import React from 'react';
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
-import {MessengerType} from "../InitialState";
+import {MessengerType} from "../State";
 import sDialogues from './Dialogues.module.css'
 
 type PropsType = {

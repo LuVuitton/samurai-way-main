@@ -1,35 +1,36 @@
-import React, {ChangeEvent,KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, LegacyRef} from 'react';
 import Post from "./Post/Post";
-import {OnePostType, PostsType} from "../../InitialState";
-import {v1} from "uuid";
+import {AddPostType, OnePostType, updateInputValueType} from "../../State";
 
-
-type PropsType = {
-    posts: PostsType
-    addPost:(dataPost: OnePostType)=>void
+type MyPostsPropsType = {
+    profile: {
+        posts: OnePostType[],
+        controlledInputPostValue:string
+    }
+    addPost: AddPostType,
+    updateInputValue:updateInputValueType
 }
 
-const MyPosts = (props: PropsType) => {
+const MyPosts = (props: MyPostsPropsType) => {
 
-   const [inputValue, setInputValue] = useState('')
+    // const newPostElement: LegacyRef<HTMLInputElement> = React.createRef();
 
-   const onChangeHandler =(e:ChangeEvent<HTMLInputElement>)=> {
-       setInputValue( e.currentTarget.value)
+    const addButtonHandler = () => {
+      props.addPost()
     }
-    const PressEnterToAddPost =(e:KeyboardEvent<HTMLInputElement>)=>{
-        if(e.key === 'Enter') {
-            props.addPost({id:v1(), time:'right now', text:inputValue}) //добавил рандомные значения в id и time
-            setInputValue('')
-        }
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.updateInputValue(e.currentTarget.value)
     }
 
-    const mapPost = props.posts.map((e)=>{
-      return  <Post key={e.id} text={e.text} time={e.time}/>
+
+    const mapPost = props.profile.posts.map((e) => {
+        return <Post key={e.id} text={e.text} time={e.time}/>
     })
 
     return (
         <>
-            <input value={inputValue} type={'text'} onChange={onChangeHandler} onKeyPress={PressEnterToAddPost}/>
+            <input type={'text'} onChange={onChangeHandler} value={props.profile.controlledInputPostValue}/>
+            <button onClick={addButtonHandler}>ADD</button>
             {mapPost}
         </>
     );

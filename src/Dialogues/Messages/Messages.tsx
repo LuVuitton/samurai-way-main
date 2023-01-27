@@ -1,31 +1,16 @@
 import React from 'react';
-import {MessagesType} from "../../InitialState";
+import {MessagesType} from "../../State";
 
-type PropsType = {
+type MessagesPropsType = {
     messages: MessagesType
 }
-const Messages = (props: PropsType) => {
-    return (<div>
-            <div>
-                Messages
-            </div>
-            <div>
-                Messages
-            </div>
-            <div>
-                Messages
-            </div>
-            <div>
-                Messages
-            </div>
-            <div>
-                Messages
-            </div>
-            <div>
-                Messages
-            </div>
+const Messages = (props: MessagesPropsType) => {
+    return (
+        <div>
+            {props.messages.map(e => <div key={e.id}>{e.text}</div>)}
         </div>
     );
 }
+
 
 export default Messages;

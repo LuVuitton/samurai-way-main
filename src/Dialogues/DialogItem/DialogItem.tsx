@@ -7,7 +7,13 @@ type PropsType ={
 const DialogItem = (props: PropsType) => {
     return (
         <div>
-            DialogItem
+            <div>DialogItem</div>
+            <div>DialogItem</div>
+            <div>DialogItem</div>
+            <div>DialogItem</div>
+            <div>DialogItem</div>
+            <div>DialogItem</div>
+            <div>DialogItem</div>
         </div>
     );
 }

@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
-import {MessengerType} from "../State";
+import { addMessageAC, updateMessengerInputValueAC} from "../Redux/Store";
 import sDialogues from './Dialogues.module.css'
+import {DialoguesPropsType} from "../Types";
 
-type PropsType = {
-    messenger:MessengerType
-}
-const Dialogues = (props:PropsType) => {
+
+const Dialogues = (props:DialoguesPropsType) => {
+
+    const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
+        props.dispatch(updateMessengerInputValueAC(e.currentTarget.value))
+    }
+    const onclickHandler = () => {
+        props.dispatch(addMessageAC())
+    }
+
     return (
         <div className={sDialogues.dialogues}>
-            <DialogItem dialogItem={props.messenger.dialogueItem} />
-            <Messages messages={props.messenger.messages}/>
+            <DialogItem dialogItem={props.state.messenger.dialogueItem} />
+            <Messages messages={props.state.messenger.messages}/>
+            <input type={'text'} onChange={onChangeHandler} value={props.state.messenger.controlledInputMessengerValue}/>
+            <button className={sDialogues.buttonAdd} onClick={onclickHandler}>ADD</button>
         </div>
     );
 }

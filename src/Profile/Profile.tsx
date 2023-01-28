@@ -1,20 +1,12 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
-import {AddPostType, OnePostType, updateInputValueType,} from "../State";
+import {ProfilePropsType} from "../Types";
 
-type PropsTyp = {
-    profile: {
-    posts: OnePostType[],
-        controlledInputPostValue:string
-    }
-    addPost: AddPostType,
-    updateInputValue:updateInputValueType
-}
 
-const Profile = (props: PropsTyp) => {
+const Profile = (props: ProfilePropsType) => {
     return (
         <div>
-            <MyPosts addPost={props.addPost} profile={props.profile} updateInputValue={props.updateInputValue}/>
+            <MyPosts state={props.state} dispatch={props.dispatch}/>
         </div>
     );
 }

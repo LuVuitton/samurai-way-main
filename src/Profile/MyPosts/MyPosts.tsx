@@ -1,35 +1,28 @@
 import React, {ChangeEvent, LegacyRef} from 'react';
 import Post from "./Post/Post";
-import {AddPostType, OnePostType, updateInputValueType} from "../../State";
+import {addPostAC, updatePostInputValueAC} from "../../Redux/Store";
+import {MyPostsPropsType} from "../../Types";
 
-type MyPostsPropsType = {
-    profile: {
-        posts: OnePostType[],
-        controlledInputPostValue:string
-    }
-    addPost: AddPostType,
-    updateInputValue:updateInputValueType
-}
 
 const MyPosts = (props: MyPostsPropsType) => {
-
     // const newPostElement: LegacyRef<HTMLInputElement> = React.createRef();
 
     const addButtonHandler = () => {
-      props.addPost()
+        props.dispatch(addPostAC())
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.updateInputValue(e.currentTarget.value)
+        props.dispatch(updatePostInputValueAC(e.currentTarget.value))
+
     }
 
 
-    const mapPost = props.profile.posts.map((e) => {
+    const mapPost = props.state.profile.posts.map((e) => {
         return <Post key={e.id} text={e.text} time={e.time}/>
     })
 
     return (
         <>
-            <input type={'text'} onChange={onChangeHandler} value={props.profile.controlledInputPostValue}/>
+            <input type={'text'} onChange={onChangeHandler} value={props.state.profile.controlledInputPostValue}/>
             <button onClick={addButtonHandler}>ADD</button>
             {mapPost}
         </>

@@ -1,9 +1,7 @@
 import React from 'react';
-import {DialogueItemType} from "../../State";
+import {DialogItemPropsType} from "../../Types";
 
-type DialogItemPropsType ={
-    dialogItem: DialogueItemType
-}
+
 const DialogItem = (props: DialogItemPropsType) => {
     return (
         <div>

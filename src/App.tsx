@@ -6,17 +6,11 @@ import Profile from "./Profile/Profile";
 import sApp from "./App.module.css"
 import Dialogues from "./Dialogues/Dialogues";
 import {BrowserRouter, Route} from "react-router-dom";
-import {AddPostType, StateType, updateInputValueType} from "./State";
+import {AppPropsType} from "./Types";
 
 
-type AppPropsType = {
-    state: StateType,
-    addPost: AddPostType,
-    updateInputValue: updateInputValueType
-}
 
 const App = (props: AppPropsType) => {
-
 
     return (
         <BrowserRouter>
@@ -29,8 +23,16 @@ const App = (props: AppPropsType) => {
                     <NavBar/>
                 </div>
                 <div className={sApp.profile}>
-                    <Route path='/DialogItem' render={() => <Dialogues messenger={props.state.messenger}/>}/>
-                    <Route path='/Profile' render={() => <Profile addPost={props.addPost} profile={props.state.profile} updateInputValue={props.updateInputValue}/>}/>
+                    <Route
+                        path='/DialogItem'
+                        render={() => <Dialogues state={props.store.getState()}
+                                                 dispatch={props.store.dispatch.bind(props.store)}/>}/>
+                    <Route
+                        path='/Profile'
+                        //когда мы передаем кудато метод из стора,НО не вызваем его, this этого метода привяжется к обекту от которого будет вызываться
+                        //например пропс, для того что бы этого не случилось, нам нужно явно привязать его к стору в том месте где мы его передаем ПС 37
+                        render={() => <Profile state={props.store.getState()}
+                                               dispatch={props.store.dispatch.bind(props.store)}/>}/>
                 </div>
             </div>
 

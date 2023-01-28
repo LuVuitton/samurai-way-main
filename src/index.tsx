@@ -2,18 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {updateInputValue, state, subscriber} from "./State";
-import {addPost} from './State'
+import {store} from "./Redux/Store";
 
 
 
 export const rerenderAllTree = ()=> {
     ReactDOM.render(<App
-        state={state}
-        addPost={addPost}
-        updateInputValue={updateInputValue}
+        store={store}
     />, document.getElementById('root'));
 }
 
 rerenderAllTree()
-subscriber(rerenderAllTree)
+store.subscribe(rerenderAllTree) // передаем эту функцию стору, будем ее вызывать после изминения стор._стейт

@@ -1,9 +1,7 @@
 import React from 'react';
-import {MessagesType} from "../../State";
+import {MessagesPropsType} from "../../Types";
 
-type MessagesPropsType = {
-    messages: MessagesType
-}
+
 const Messages = (props: MessagesPropsType) => {
     return (
         <div>

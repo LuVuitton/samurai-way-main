@@ -2,3 +2,8 @@
     display:grid;
     grid-template-columns: 2fr 5fr;
 }
+
+
+.buttonAdd {
+    width: 50px;
+}

@@ -1,9 +1,8 @@
 import React from 'react';
-import './App.module.css';
+import sApp from "./App.module.css"
 import Header from "./Header/Header";
 import NavBar from "./NavBar/NavBar";
 import Profile from "./Profile/Profile";
-import sApp from "./App.module.css"
 import Dialogues from "./Dialogues/Dialogues";
 import {BrowserRouter, Route} from "react-router-dom";
 import {AppPropsType} from "./Types";
@@ -11,7 +10,6 @@ import {AppPropsType} from "./Types";
 
 
 const App = (props: AppPropsType) => {
-
     return (
         <BrowserRouter>
 

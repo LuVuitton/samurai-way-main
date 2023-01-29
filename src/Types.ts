@@ -1,5 +1,5 @@
 //неиспользуемые типы стора
-export type OldStoreType = {
+type OldStoreType = {
     _subscriber: () => void
     _state: StateType
     getState: () => StateType
@@ -8,11 +8,15 @@ export type OldStoreType = {
 }
 /////////////////////////////////////////
 //State types
-export type StateType = {
-    profile: {
-        postsArr: Array<OnePostType>
-        controlledInputPostValue: string
-    }
+export type ReduxStoreType = {                      //понять шо тут происходит, типизируем только свойства к которым обращаемся?
+    dispatch: (action:ActionType)=>void
+    getState: ()=> StateType
+    subscribe: (observer:()=>void) => void
+
+}
+
+type StateType = {
+    profile: ProfileStateType
     messenger: MessengerStateType
 }
 type OneDialogueType = {
@@ -28,13 +32,6 @@ type OnePostType = {
     text: string | undefined //пофиксить андефайнд
     time: string
 }
-
-
-export type ReduxStoreType = {                          //понять шо тут происходит, типизируем только свойства к которыми обращаемся?
-    dispatch: (action:ActionType)=>void
-    getState: ()=> StateType
-    subscribe: (observer:()=>void) => void
-}
 export type MessengerStateType = {
     dialoguesArr: Array<OneDialogueType>
     messagesArr: Array<OneMessageType>
@@ -44,8 +41,6 @@ export type ProfileStateType = {
     postsArr: Array<OnePostType>
     controlledInputPostValue: string
 }
-
-
 
 //props types
 export type AppPropsType = {
@@ -75,7 +70,7 @@ export type ActionType = {
     type: string
     payload?: any
 }
-export type DispatchType = (action: ActionType) => void
+type DispatchType = (action: ActionType) => void
 //AC types
 export type addPostACType = () => ActionType
 export type addMessageACType = () => ActionType

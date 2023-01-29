@@ -3,18 +3,17 @@ import {v1} from "uuid";
 import {dataTime} from "../../DataTime";
 
 
-const initialState = {
-        postsArr: [
-            // {id: v1(), text: 'post for feed', time: '00:01'},
-            // {id: v1(), text: 'first post for feed', time: '00:02'},
-            // {id: v1(), text: 'second post for feed', time: '00:03'},
-        ],
-        controlledInputPostValue: '',
-    }
+const profileInitialState: ProfileStateType = {
+    postsArr: [
+        // {id: v1(), text: 'post for feed', time: '00:01'},
+        // {id: v1(), text: 'first post for feed', time: '00:02'},
+        // {id: v1(), text: 'second post for feed', time: '00:03'},
+    ],
+    controlledInputPostValue: '',
+}
 
 
-
-export const ProfileReducer = (state: ProfileStateType = initialState, action: ActionType) => {
+export const ProfileReducer = (state: ProfileStateType = profileInitialState, action: ActionType):ProfileStateType => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
         case 'ADD-POST':
             const newPost = {id: v1(), text: state.controlledInputPostValue, time: dataTime().dataTime.currentTime};
@@ -25,5 +24,6 @@ export const ProfileReducer = (state: ProfileStateType = initialState, action: A
             state.controlledInputPostValue = action.payload.currentValue
             break;
     }
+    console.log('ProfileReducer')
     return {...state}
 }

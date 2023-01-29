@@ -24,6 +24,5 @@ export const ProfileReducer = (state: ProfileStateType = profileInitialState, ac
             state.controlledInputPostValue = action.payload.currentValue
             break;
     }
-    console.log('ProfileReducer')
     return {...state}
 }

@@ -27,6 +27,5 @@ export const MessengerReducer = (state: MessengerStateType = messengerInitialSta
                 },]
                 state.controlledInputMessengerValue = ''
     }
-    console.log('MessengerReducer')
     return {...state}
 }

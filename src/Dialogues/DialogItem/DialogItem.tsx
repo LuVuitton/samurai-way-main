@@ -5,7 +5,7 @@ import {DialogItemPropsType} from "../../Types";
 const DialogItem = (props: DialogItemPropsType) => {
     return (
         <div>
-            {props.dialogItem.map(e=> <div key={e.id}>{e.userName}</div>)}
+            {props.dialoguesArr.map(e=> <div key={e.id}>{e.userName}</div>)}
         </div>
     );
 }

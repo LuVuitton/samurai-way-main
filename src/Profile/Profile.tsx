@@ -6,7 +6,7 @@ import {ProfilePropsType} from "../Types";
 const Profile = (props: ProfilePropsType) => {
     return (
         <div>
-            <MyPosts state={props.state} dispatch={props.dispatch}/>
+            <MyPosts store={props.store}/>
         </div>
     );
 }

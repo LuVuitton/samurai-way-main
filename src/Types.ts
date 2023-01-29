@@ -1,11 +1,13 @@
 //неиспользуемые типы стора
-type OldStoreType = {
-    _subscriber: () => void
-    _state: StateType
-    getState: () => StateType
-    subscribe: (observer: () => void) => void
-    dispatch: DispatchType
-}
+import {ChangeEvent, KeyboardEvent} from "react";
+
+// type OldStoreType = {
+//     _subscriber: () => void
+//     _state: StateType
+//     getState: () => StateType
+//     subscribe: (observer: () => void) => void
+//     dispatch: DispatchType
+// }
 /////////////////////////////////////////
 //State types
 export type ReduxStoreType = {                      //понять шо тут происходит, типизируем только свойства к которым обращаемся?
@@ -47,16 +49,13 @@ export type AppPropsType = {
     store: ReduxStoreType,
 }
 export type ProfilePropsType = {
-    state: StateType
-    dispatch: DispatchType
+    store:ReduxStoreType
 }
 export type MyPostsPropsType = {
-    state: StateType
-    dispatch: DispatchType
+    store:ReduxStoreType
 }
 export type DialoguesPropsType = {
-    state: StateType
-    dispatch: DispatchType
+    store:ReduxStoreType
 }
 export type DialogItemPropsType = {
     dialoguesArr: Array<OneDialogueType>
@@ -70,10 +69,26 @@ export type ActionType = {
     type: string
     payload?: any
 }
-type DispatchType = (action: ActionType) => void
+export type DispatchType = (action: ActionType) => void
 //AC types
 export type addPostACType = () => ActionType
 export type addMessageACType = () => ActionType
 export type updatePostInputValueACType = (currentValue: string) => ActionType
 export type updateMessengerInputValueACType = (currentValue: string) => ActionType
+
+
+
+export type ReFormPropsType ={
+    onChangeHandler:(e: ChangeEvent<HTMLInputElement>)=>void
+    onKeyPressHandler:(e: KeyboardEvent<HTMLInputElement>)=>void
+    onclickHandler:()=>void
+    inputValue:string
+
+}
+
+export type ContainerType = {
+    store:ReduxStoreType
+}
+
+
 

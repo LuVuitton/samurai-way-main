@@ -51,17 +51,17 @@ export type AppPropsType = {
 export type ProfilePropsType = {
     store:ReduxStoreType
 }
-export type MyPostsPropsType = {
+export type PostsListPropsType = {
+    arr:Array<OnePostType>
+}
+export type MessengerPropsType = {
     store:ReduxStoreType
 }
-export type DialoguesPropsType = {
-    store:ReduxStoreType
+export type DialogListPropsType = {
+    arr: Array<OneDialogueType>
 }
-export type DialogItemPropsType = {
-    dialoguesArr: Array<OneDialogueType>
-}
-export type MessagesPropsType = {
-    messagesArr: Array<OneMessageType>
+export type MessagesListPropsType = {
+    arr: Array<OneMessageType>
 }
 
 ///////

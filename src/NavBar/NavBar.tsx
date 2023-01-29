@@ -5,7 +5,7 @@ const NavBar = () => {
     return (
         <div>
             <ul>
-                <li> <NavLink to='/DialogItem'> DialogItem </NavLink> </li>
+                <li> <NavLink to='/Messenger'> DialogItem </NavLink> </li>
                 <li> <NavLink to='/Profile'> Profile </NavLink> </li>
             </ul>
         </div>

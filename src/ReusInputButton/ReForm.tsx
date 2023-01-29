@@ -1,5 +1,6 @@
 import React from "react";
 import {ReFormPropsType} from "../Types";
+import sReForm from './ReForm.module.css'
 
 export const ReForm = (props: ReFormPropsType) => {
     return <>
@@ -7,6 +8,6 @@ export const ReForm = (props: ReFormPropsType) => {
                value={props.inputValue}
                onKeyPress={props.onKeyPressHandler}
         />
-        <button className={''} onClick={props.onclickHandler}>ADD</button>
+        <button className={sReForm.reButton} onClick={props.onclickHandler}>ADD</button>
     </>
 }

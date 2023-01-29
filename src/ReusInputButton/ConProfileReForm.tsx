@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {addPostAC,  updatePostInputValueAC} from "../Redux/ActionCreators";
+import {addPostAC, updatePostInputValueAC} from "../Redux/ActionCreators";
 import {ReForm} from "./ReForm";
 import {ContainerType} from "../Types";
 
@@ -12,7 +12,7 @@ export const ConProfileReForm = (props: ContainerType) => {
         props.store.dispatch(addPostAC())
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        e.key === 'Enter' &&                                                      // if (e.key==='Enter'){console.log(e.key)}
+        e.key === 'Enter' &&                                            // if (e.key==='Enter'){console.log(e.key)}
         props.store.dispatch(addPostAC())
     }
 

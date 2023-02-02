@@ -2,6 +2,7 @@ import React from 'react';
 import {DialogListPropsType} from "../../Types";
 
 
+
 const DialogList = (props: DialogListPropsType) => {
     return (
         <div>
@@ -11,3 +12,4 @@ const DialogList = (props: DialogListPropsType) => {
 }
 
 export default DialogList;
+

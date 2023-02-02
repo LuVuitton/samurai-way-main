@@ -2,13 +2,12 @@ import React from 'react';
 import sApp from "./App.module.css"
 import Header from "./Header/Header";
 import NavBar from "./NavBar/NavBar";
-import Profile from "./Profile/Profile";
 import Messenger from "./Messenger/Messenger";
 import {BrowserRouter, Route} from "react-router-dom";
-import {AppPropsType} from "./Types";
+import Profile from "./Profile/Profile";
 
 
-const App = (props: AppPropsType) => {
+const App = () => {
     return (
         <BrowserRouter>
 
@@ -22,10 +21,10 @@ const App = (props: AppPropsType) => {
                 <div className={sApp.profile}>
                     <Route
                         path='/Messenger'
-                        render={() => <Messenger store={props.store}/>}/>
+                        render={() => <Messenger />}/>
                     <Route
                         path='/Profile'
-                        render={() => <Profile store={props.store}/>}/>
+                        render={() => <Profile />}/>
                 </div>
             </div>
 

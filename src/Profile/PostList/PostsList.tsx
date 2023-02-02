@@ -2,6 +2,7 @@ import React from 'react';
 import {PostsListPropsType} from "../../Types";
 
 
+
 const PostsList = (props: PostsListPropsType) => {
 
     return (

@@ -1,5 +1,5 @@
-//неиспользуемые типы стора
 import {ChangeEvent, KeyboardEvent} from "react";
+import {StateType} from "./Redux/ReduxStore";
 
 // type OldStoreType = {
 //     _subscriber: () => void
@@ -11,16 +11,13 @@ import {ChangeEvent, KeyboardEvent} from "react";
 /////////////////////////////////////////
 //State types
 export type ReduxStoreType = {                      //понять шо тут происходит, типизируем только свойства к которым обращаемся?
-    dispatch: (action:ActionType)=>void
-    getState: ()=> StateType
-    subscribe: (observer:()=>void) => void
+    dispatch: (action: ActionType) => void
+    getState: () => StateType                        //StateType тип создан автоматом
+    subscribe: (observer: () => void) => void
 
 }
 
-type StateType = {
-    profile: ProfileStateType
-    messenger: MessengerStateType
-}
+
 type OneDialogueType = {
     id: string
     userName: string
@@ -45,18 +42,12 @@ export type ProfileStateType = {
 }
 
 //props types
-export type AppPropsType = {
-    store: ReduxStoreType,
-}
-export type ProfilePropsType = {
-    store:ReduxStoreType
-}
+
+
 export type PostsListPropsType = {
-    arr:Array<OnePostType>
+    arr: Array<OnePostType>
 }
-export type MessengerPropsType = {
-    store:ReduxStoreType
-}
+
 export type DialogListPropsType = {
     arr: Array<OneDialogueType>
 }
@@ -77,17 +68,16 @@ export type updatePostInputValueACType = (currentValue: string) => ActionType
 export type updateMessengerInputValueACType = (currentValue: string) => ActionType
 
 
-
-export type ReFormPropsType ={
-    onChangeHandler:(e: ChangeEvent<HTMLInputElement>)=>void
-    onKeyPressHandler:(e: KeyboardEvent<HTMLInputElement>)=>void
-    onclickHandler:()=>void
-    inputValue:string
+export type ReFormPropsType = {
+    onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    onKeyPressHandler: (e: KeyboardEvent<HTMLInputElement>) => void
+    onclickHandler: () => void
+    inputValue: string
 
 }
 
 export type ContainerType = {
-    store:ReduxStoreType
+    store: ReduxStoreType
 }
 
 

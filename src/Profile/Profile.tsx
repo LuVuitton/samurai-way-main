@@ -1,14 +1,13 @@
 import React from 'react';
-import PostsList from "./PostList/PostsList";
-import {ProfilePropsType} from "../Types";
-import {ConProfileReForm} from "../ReusInputButton/ConProfileReForm";
+import {ConnProfileReForm} from "./ConnProfileReForm";
+import {ConnPostsList} from "./PostList/ConnPostsList";
 
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = () => {
     return (
         <div>
-            <ConProfileReForm store={props.store}/>
-            <PostsList arr={props.store.getState().profile.postsArr}/>
+            <ConnProfileReForm />
+            <ConnPostsList />
         </div>
     );
 }

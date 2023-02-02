@@ -1,21 +1,21 @@
 import React from 'react';
-import DialogList from "./DialogList/DialogList";
-import MessagesList from "./MessagesList/MessagesList";
 import sMessenger from './Messenger.module.css'
-import {MessengerPropsType} from "../Types";
-import {ConMessengerReForm} from "../ReusInputButton/ConMessengerReForm";
+import {ConnMessengerReForm} from "./ConnMessengerReForm";
+import {ConnDialogList} from "./DialogList/ConnDialogList";
+import {ConnMessagesList} from "./MessagesList/ConnMessagesList";
 
 
-const Messenger = (props: MessengerPropsType) => {
+const Messenger = () => {
 
     return (
         <div className={sMessenger.dialogues}>
 
-            <DialogList arr={props.store.getState().messenger.dialoguesArr}/>
-            <MessagesList arr={props.store.getState().messenger.messagesArr}/>
+            <ConnDialogList/>
+            <ConnMessagesList/>
 
+            {/* в коннекте фун что формируют пропсы вызывают диспатч забайдненый на стор как мы делали сами в начале*/}
+            <ConnMessengerReForm/>
 
-            <ConMessengerReForm store={props.store}/>
         </div>
     );
 }

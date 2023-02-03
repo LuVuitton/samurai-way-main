@@ -1,11 +1,10 @@
-import {StateType} from "../../Redux/ReduxStore";
+import {StateType} from "../../../Redux/Store";
 import {connect} from "react-redux";
 import DialogList from "./DialogList";
 
 
-
-const mapStateToProps = (state:StateType)=> {
-    return{
+const mapStateToProps = (state: StateType) => {
+    return {
         arr: state.messenger.dialoguesArr
     }
 }

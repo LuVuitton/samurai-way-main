@@ -1,5 +1,5 @@
 import React from 'react';
-import {DialogListPropsType} from "../../Types";
+import {DialogListPropsType} from "../../../Types";
 
 
 const DialogList = (props: DialogListPropsType) => {

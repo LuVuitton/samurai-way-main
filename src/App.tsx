@@ -1,11 +1,11 @@
 import React from 'react';
 import sApp from "./App.module.css"
-import Header from "./Header/Header";
-import NavBar from "./NavBar/NavBar";
-import Messenger from "./Messenger/Messenger";
+import Header from "./components/Header/Header";
+import NavBar from "./components/NavBar/NavBar";
+import Messenger from "./components/Messenger/Messenger";
 import {BrowserRouter, Route} from "react-router-dom";
-import Profile from "./Profile/Profile";
-import {Users} from "./Users/Users";
+import Profile from "./components/Profile/Profile";
+import {Users} from "./components/Users/Users";
 
 
 const App = () => {
@@ -43,3 +43,4 @@ export default App;
 //BIND STORE(oldStore)
 //когда мы передаем кудато метод из стора,НО не вызваем его, this этого метода привяжется к обекту от которого будет вызываться
 //например пропс, для того что бы этого не случилось, нам нужно явно привязать его к стору в том месте где мы его передаем ПС 37
+

@@ -1,0 +1,45 @@
+.mainWrapper {
+
+}
+
+.itemWrapper {
+    border: solid rgba(95, 158, 160, 0.45) 3px;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-gap: 10px;
+}
+
+.avatar {
+    background-color: rgba(114, 201, 174, 0.27);
+    height: 100px;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.subscription {
+    width: 150px;
+}
+
+.city {
+
+}
+
+.country {
+
+}
+
+.userName {
+
+}
+
+.subscriptionActive {
+    background-color: #a9cc64;
+    width: 70px;
+    margin-bottom: 5px;
+}
+
+.subscription {
+    width: 70px;
+    background-color: rgba(119, 136, 153, 0.5);
+    margin-bottom: 5px;
+}

@@ -1,5 +1,5 @@
 import {ChangeEvent, KeyboardEvent} from "react";
-import {StateType} from "./Redux/ReduxStore";
+import {StateType} from "./Redux/Store";
 
 // type OldStoreType = {
 //     _subscriber: () => void

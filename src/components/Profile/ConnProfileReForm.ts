@@ -1,9 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
-import {addPostAC, updatePostInputValueAC} from "../Redux/ActionCreators";
+import {ChangeEvent, KeyboardEvent} from "react";
+import {addPostAC, updatePostInputValueAC} from "../../Redux/ActionCreators";
 import {ReForm} from "../ReusInputButton/ReForm";
-import {ActionType} from "../Types";
+import {ActionType} from "../../Types";
 import {connect} from "react-redux";
-import {StateType} from "../Redux/ReduxStore";
+import {StateType} from "../../Redux/Store";
 
 
 const mapStateToProps = (state: StateType) => {

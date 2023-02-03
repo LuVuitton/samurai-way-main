@@ -1,5 +1,5 @@
 import React from 'react';
-import {PostsListPropsType} from "../../Types";
+import {PostsListPropsType} from "../../../Types";
 
 
 

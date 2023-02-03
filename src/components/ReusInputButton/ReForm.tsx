@@ -1,5 +1,5 @@
 import React from "react";
-import {ReFormPropsType} from "../Types";
+import {ReFormPropsType} from "../../Types";
 import sReForm from './ReForm.module.css'
 
 export const ReForm = (props: ReFormPropsType) => {

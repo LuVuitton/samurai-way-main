@@ -1,4 +1,4 @@
-import {StateType} from "../../Redux/ReduxStore";
+import {StateType} from "../../../Redux/Store";
 import {connect} from "react-redux";
 import {MessagesList} from "./MessagesList";
 

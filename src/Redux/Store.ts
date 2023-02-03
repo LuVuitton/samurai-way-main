@@ -13,13 +13,14 @@ import {UsersReducer} from "./Reducers/UsersReducer";
 //          }
 // а после возвращает его оттуда уже без повторного запуска редьюсеров
 
+export type StateType = ReturnType<typeof rootReducer> // автоматически типизирует то что вернется то что после typeof
+
+
 const rootReducer = combineReducers({
     profile: ProfileReducer,
     messenger: MessengerReducer,
     users:UsersReducer
 })
-
-export type StateType = ReturnType<typeof rootReducer> // автоматически типизирует то что вернется то что после typeof
 
 const store = createStore(rootReducer)
 

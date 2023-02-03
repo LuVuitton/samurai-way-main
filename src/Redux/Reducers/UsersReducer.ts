@@ -37,7 +37,7 @@ const usersInitialState: UserStateType = {
             id: 2,
             userName: 'Oleg',
             avatar: '',
-            description: 'here',
+            description: 'asdaslkdjalskjdlaksjd',
             subscription: true,
             place: {
                 city: 'Kyiv',
@@ -47,13 +47,33 @@ const usersInitialState: UserStateType = {
         },
         {
             id: 3,
-            userName: 'Alesha',
+            userName: 'Jora',
             avatar: '',
             description: 'here',
             subscription: true,
             place: {
-                city: 'Lviv',
-                country: 'Ukraine'
+                city: 'London',
+                country: 'UK'
+            },
+        },  {
+            id: 4,
+            userName: 'Masha',
+            avatar: '',
+            description: 'here',
+            subscription: false,
+            place: {
+                city: 'NewYork',
+                country: 'USA'
+            },
+        }, {
+            id: 5,
+            userName: 'Dima',
+            avatar: '',
+            description: 'adlaksjdlaksjdlaksjdlalksdjlaksdj',
+            subscription: false,
+            place: {
+                city: 'Milan',
+                country: 'Italy'
             },
         },
     ]
@@ -71,14 +91,12 @@ export const switchSubStatusAC = (userID: number) => {
     } as const
 }
 
-export const UsersReducer = (state: UserStateType = usersInitialState, action: ActionType): UserStateType => { //перед стрелкой пишем тип который возвращается
+export const UsersReducer = (state: UserStateType = usersInitialState, action: switchSubStatusACType): UserStateType => { //перед стрелкой пишем тип который возвращается
 
     switch (action.type) {
         case 'SWITCH-SUB-STATUS':
             return {...state,
                 users: state.users.map(e => e.id === action.payload.userID ? {...e, subscription: !e.subscription} : e)}
-            break;
-        case '':
             break;
     }
     return state

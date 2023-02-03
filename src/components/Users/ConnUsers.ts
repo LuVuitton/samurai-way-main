@@ -1,9 +1,7 @@
-import React from "react";
 import {connect} from "react-redux";
 import {UsersList} from "./UsersList";
-import {StateType} from "../Redux/ReduxStore";
-import {switchSubStatusAC} from "../Redux/Reducers/UsersReducer";
-import {ActionType} from "../Types";
+import {StateType} from "../../Redux/Store";
+import {switchSubStatusAC, switchSubStatusACType} from "../../Redux/Reducers/UsersReducer";
 
 
 const mapStateToProps = (state: StateType) => {
@@ -12,7 +10,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action:ActionType)=>void) => {
+const mapDispatchToProps = (dispatch: (action:switchSubStatusACType)=>void) => {
     return {
         onClickHandler:(userID:number)=> dispatch(switchSubStatusAC(userID))
     }

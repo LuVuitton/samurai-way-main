@@ -1,5 +1,5 @@
 import React from 'react';
-import {MessagesListPropsType} from "../../Types";
+import {MessagesListPropsType} from "../../../Types";
 
 
 export const MessagesList = (props: MessagesListPropsType) => {

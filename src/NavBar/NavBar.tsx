@@ -7,6 +7,7 @@ const NavBar = () => {
             <ul>
                 <li> <NavLink to='/Messenger'> DialogItem </NavLink> </li>
                 <li> <NavLink to='/Profile'> Profile </NavLink> </li>
+                <li> <NavLink to='/Users'> Users </NavLink> </li>
             </ul>
         </div>
     );

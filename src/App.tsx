@@ -5,6 +5,7 @@ import NavBar from "./NavBar/NavBar";
 import Messenger from "./Messenger/Messenger";
 import {BrowserRouter, Route} from "react-router-dom";
 import Profile from "./Profile/Profile";
+import {Users} from "./Users/Users";
 
 
 const App = () => {
@@ -25,6 +26,9 @@ const App = () => {
                     <Route
                         path='/Profile'
                         render={() => <Profile />}/>
+                    <Route
+                        path='/Users'
+                        render={()=> <Users />}/>
                 </div>
             </div>
 

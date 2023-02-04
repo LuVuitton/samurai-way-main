@@ -1,51 +1,50 @@
-import {UsersReducer, UserStateType} from "../Redux/Reducers/UsersReducer";
+import {UsersReducer} from "../Redux/Reducers/UsersReducer";
+import {UserStateType} from "../Types";
 
-test('to switch subStatus', ()=> {
+test('to switch subStatus', () => {
 
     const startState: UserStateType = {
+        pageNumbers:1,
         users: [
             {
                 id: 1,
-                userName: 'Stasic',
-                avatar: '',
-                description: 'here',
-                subscription: false,
-                place: {
-                    city: 'Kharkiv',
-                    country: 'Ukraine'
+                name: 'Stasic',
+                photos: {
+                    small: null,
+                    large: null,
                 },
-
+                status: 'here',
+                followed: false,
+                uniqueUrlName: null
             },
             {
                 id: 2,
-                userName: 'Oleg',
-                avatar: '',
-                description: 'here',
-                subscription: true,
-                place: {
-                    city: 'Kyiv',
-                    country: 'Ukraine'
+                name: 'Jora',
+                photos: {
+                    small: null,
+                    large: null,
                 },
-
+                status: 'here',
+                followed: false,
+                uniqueUrlName: null
             },
             {
                 id: 3,
-                userName: 'Alesha',
-                avatar: '',
-                description: 'here',
-                subscription: true,
-                place: {
-                    city: 'Lviv',
-                    country: 'Ukraine'
+                name: 'Maksim',
+                photos: {
+                    small: null,
+                    large: null,
                 },
+                status: 'here',
+                followed: false,
+                uniqueUrlName: null
             },
         ]
     }
 
 
+    const endState = UsersReducer(startState, {type: 'SWITCH-SUB-STATUS', payload: {userID: 3}})
 
-    const endState = UsersReducer(startState, {type:'SWITCH-SUB-STATUS', payload:{userID: 3}})
 
-
-    expect(endState.users[2].subscription).toBe(false)
+    expect(endState.users[2].followed).toBe(true)
 })

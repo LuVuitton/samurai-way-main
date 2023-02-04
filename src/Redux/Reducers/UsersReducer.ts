@@ -1,86 +1,16 @@
-import {ActionType,} from "../../Types";
-
-export type UserStateType = {
-    users: OneUserType[]
-}
-
-export type OneUserType = {
-
-    id: number,
-    avatar: string
-    userName: string
-    description: string
-    subscription: boolean
-    place: {
-        city: string
-        country: string
-    }
-}
-
+import {UserStateType} from "../../Types";
 
 const usersInitialState: UserStateType = {
 
-    users: [
-        {
-            id: 1,
-            userName: 'Stasic',
-            avatar: '',
-            description: 'here',
-            subscription: false,
-            place: {
-                city: 'Kharkiv',
-                country: 'Ukraine'
-            },
+    users: [],
+    pageNumbers: 1
 
-        },
-        {
-            id: 2,
-            userName: 'Oleg',
-            avatar: '',
-            description: 'asdaslkdjalskjdlaksjd',
-            subscription: true,
-            place: {
-                city: 'Kyiv',
-                country: 'Ukraine'
-            },
-
-        },
-        {
-            id: 3,
-            userName: 'Jora',
-            avatar: '',
-            description: 'here',
-            subscription: true,
-            place: {
-                city: 'London',
-                country: 'UK'
-            },
-        },  {
-            id: 4,
-            userName: 'Masha',
-            avatar: '',
-            description: 'here',
-            subscription: false,
-            place: {
-                city: 'NewYork',
-                country: 'USA'
-            },
-        }, {
-            id: 5,
-            userName: 'Dima',
-            avatar: '',
-            description: 'adlaksjdlaksjdlaksjdlalksdjlaksdj',
-            subscription: false,
-            place: {
-                city: 'Milan',
-                country: 'Italy'
-            },
-        },
-    ]
 }
 
-
+export type ACTypes = switchSubStatusACType | setUsersACType | showMoreACType
 export type switchSubStatusACType = ReturnType<typeof switchSubStatusAC>
+export type setUsersACType = ReturnType<typeof setUsersAC>
+export type showMoreACType = ReturnType<typeof showMoreAC>
 
 export const switchSubStatusAC = (userID: number) => {
     return {
@@ -90,13 +20,40 @@ export const switchSubStatusAC = (userID: number) => {
         }
     } as const
 }
+export const setUsersAC = (receivedUsersArr: any[]) => {
+    return {
+        type: 'SET-USERS',
+        payload: {
+            receivedUsersArr
+        }
+    } as const
+}
+export const showMoreAC = () => {
+    return {
+        type: 'SHOW-MORE',
+    } as const
+}
 
-export const UsersReducer = (state: UserStateType = usersInitialState, action: switchSubStatusACType): UserStateType => { //перед стрелкой пишем тип который возвращается
+export const UsersReducer = (state: UserStateType = usersInitialState, action: ACTypes): UserStateType => { //перед стрелкой пишем тип который возвращается
 
     switch (action.type) {
         case 'SWITCH-SUB-STATUS':
-            return {...state,
-                users: state.users.map(e => e.id === action.payload.userID ? {...e, subscription: !e.subscription} : e)}
+            return {
+                ...state,
+                users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: !e.followed} : e)
+            }
+            break;
+        case 'SET-USERS':
+            return {
+                ...state,
+                users: [...state.users, ...action.payload.receivedUsersArr]
+            }
+            break;
+            case 'SHOW-MORE':
+            return {
+                ...state,
+                pageNumbers: state.pageNumbers + 1
+            }
             break;
     }
     return state

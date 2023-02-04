@@ -60,7 +60,7 @@ export type ActionType = {
     type: string
     payload?: any
 }
-export type DispatchType = (action: ActionType) => void
+type DispatchType = (action: ActionType) => void
 //AC types
 export type addPostACType = () => ActionType
 export type addMessageACType = () => ActionType
@@ -76,8 +76,20 @@ export type ReFormPropsType = {
 
 }
 
-export type ContainerType = {
-    store: ReduxStoreType
+export type UserStateType = {
+    users: OneUserType[]
+    pageNumbers: number
+}
+
+export type OneUserType = {
+
+    followed: boolean
+    id: number
+    name: string
+    photos: { small: null | string, large: null | string }
+    status: null | string
+    uniqueUrlName: null | string
+
 }
 
 

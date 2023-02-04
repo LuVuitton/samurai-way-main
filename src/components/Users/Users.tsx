@@ -1,6 +1,6 @@
 import React from "react";
-import {ConnUsers} from "./ConnUsers";
+import {ConnUsersList} from "./ConnUsersList";
 
 export const Users =()=> {
-    return <ConnUsers />
+    return <ConnUsersList />
 }

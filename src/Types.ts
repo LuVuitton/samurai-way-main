@@ -79,6 +79,8 @@ export type ReFormPropsType = {
 export type UserStateType = {
     users: OneUserType[]
     pageNumbers: number
+    totalUsers:number
+    usersReceivedStatus: boolean
 }
 
 export type OneUserType = {

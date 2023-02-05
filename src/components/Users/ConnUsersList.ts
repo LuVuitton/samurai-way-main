@@ -1,26 +1,35 @@
 import {connect} from "react-redux";
 import {StateType} from "../../Redux/Store";
 import {ACTypes, setUsersAC, showMoreAC, switchSubStatusAC} from "../../Redux/Reducers/UsersReducer";
-import {UsersList} from "./UsersList";
+import {UsersClassContainer} from "./UsersClassContainer";
 import {OneUserType} from "../../Types";
 
 
 const mapStateToProps = (state: StateType) => {
     return {
+        pageNumbers: state.users.pageNumbers,
         arr: state.users.users,
-        pageNumbers: state.users.pageNumbers
+        totalUsers: state.users.totalUsers,
+        usersReceivedStatus: state.users.usersReceivedStatus
+
     }
 }
 
-const mapDispatchToProps = (dispatch: (action:ACTypes)=>void) => {
+const mapDispatchToProps = (dispatch: (action: ACTypes) => void) => {
     return {
-        onClickHandler:(userID:number)=> dispatch(switchSubStatusAC(userID)),
-        showMoreClickHandler:()=> dispatch(showMoreAC()),
-
-        setUsers: (receivedUsersArr:OneUserType[])=> {
-            dispatch(setUsersAC(receivedUsersArr))
+        onClickHandler: (userID: number) => dispatch(switchSubStatusAC(userID)),
+        showMoreForCC: () => dispatch(showMoreAC()),
+        setUsers: (receivedUsersArr: OneUserType[], totalUsers: number) => {
+            dispatch(setUsersAC(receivedUsersArr, totalUsers))
         }
     }
 }
 
-export const ConnUsersList = connect(mapStateToProps,mapDispatchToProps)(UsersList)
+// на случай когда запефакторим мапДиспатчТуПропс
+// в коннекте не просто одна 'follow', а  связка "ключ: значение" ' follow: follow' ,
+// причем 2ой фоллоу - это импортированая ссылка на функцию в редьюсере. В итоге,  в коннекте существует обьект вида:
+// {
+// follow: follow = (userId) => ({ type: FOLLOW, userId })
+// unfollow: unfollow = (userId) => ({ type: UNFOLLOW, userId })
+
+export const ConnUsersList = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)

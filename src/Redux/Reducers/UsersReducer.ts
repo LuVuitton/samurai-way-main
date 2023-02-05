@@ -1,10 +1,10 @@
-import {UserStateType} from "../../Types";
+import {OneUserType, UserStateType} from "../../Types";
 
 const usersInitialState: UserStateType = {
-
     users: [],
-    pageNumbers: 1
-
+    pageNumbers: 1,
+    totalUsers: 0,
+    usersReceivedStatus: false
 }
 
 export type ACTypes = switchSubStatusACType | setUsersACType | showMoreACType
@@ -20,11 +20,12 @@ export const switchSubStatusAC = (userID: number) => {
         }
     } as const
 }
-export const setUsersAC = (receivedUsersArr: any[]) => {
+export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers:number) => {
     return {
         type: 'SET-USERS',
         payload: {
-            receivedUsersArr
+            receivedUsersArr,
+            totalUsers
         }
     } as const
 }
@@ -34,6 +35,7 @@ export const showMoreAC = () => {
     } as const
 }
 
+
 export const UsersReducer = (state: UserStateType = usersInitialState, action: ACTypes): UserStateType => { //перед стрелкой пишем тип который возвращается
 
     switch (action.type) {
@@ -42,19 +44,18 @@ export const UsersReducer = (state: UserStateType = usersInitialState, action: A
                 ...state,
                 users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: !e.followed} : e)
             }
-            break;
         case 'SET-USERS':
             return {
                 ...state,
-                users: [...state.users, ...action.payload.receivedUsersArr]
+                users: [...state.users, ...action.payload.receivedUsersArr],
+                totalUsers: action.payload.totalUsers,
+                usersReceivedStatus: true
             }
-            break;
             case 'SHOW-MORE':
             return {
                 ...state,
                 pageNumbers: state.pageNumbers + 1
             }
-            break;
     }
     return state
 }

@@ -4,6 +4,8 @@ import {UserStateType} from "../Types";
 test('to switch subStatus', () => {
 
     const startState: UserStateType = {
+        usersReceivedStatus: false,
+        totalUsers:0,
         pageNumbers:1,
         users: [
             {

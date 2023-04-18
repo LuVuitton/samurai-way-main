@@ -7,7 +7,7 @@ const PostsList = (props: PostsListPropsType) => {
 
     return (
         <div>
-            {props.arr.map((e) => <div key={e.id}>  {e.text} {e.time}</div>)}
+            {props.arr.map(e => <div key={e.id}>  {e.text} {e.time}</div>)}
         </div>
     );
 }

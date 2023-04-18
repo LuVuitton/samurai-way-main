@@ -4,8 +4,8 @@ import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
 import {BrowserRouter, Route} from "react-router-dom";
-import Profile from "./components/Profile/Profile";
 import {Users} from "./components/Users/Users";
+import Profile from "./components/Profile/Profile";
 
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
                         path='/Messenger'
                         render={() => <Messenger />}/>
                     <Route
-                        path='/Profile'
+                        path='/Profile/:userID?'
                         render={() => <Profile />}/>
                     <Route
                         path='/Users'

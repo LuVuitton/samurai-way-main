@@ -1,5 +1,6 @@
-import {ActionType, MessengerStateType} from "../../Types";
+import { MessengerStateType} from "../../Types";
 import {v1} from "uuid";
+import {ActionsType} from "../ActionCreators";
 
 const messengerInitialState:MessengerStateType = {
     dialoguesArr: [
@@ -15,7 +16,7 @@ const messengerInitialState:MessengerStateType = {
     controlledInputMessengerValue: '',
 }
 
-export const MessengerReducer = (state: MessengerStateType = messengerInitialState, action: ActionType):MessengerStateType => { //перед стрелкой пишем тип который возвращается
+export const MessengerReducer = (state: MessengerStateType = messengerInitialState, action: ActionsType):MessengerStateType => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
             case 'UPDATE-MESSENGER-INPUT-VALUE':
                 state.controlledInputMessengerValue = action.payload.currentValue

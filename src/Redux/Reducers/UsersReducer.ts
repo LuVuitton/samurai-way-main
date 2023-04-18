@@ -1,4 +1,5 @@
 import {OneUserType, UserStateType} from "../../Types";
+import {ActionsType} from "../ActionCreators";
 
 const usersInitialState: UserStateType = {
     users: [],
@@ -7,10 +8,7 @@ const usersInitialState: UserStateType = {
     usersReceivedStatus: false
 }
 
-export type ACTypes = switchSubStatusACType | setUsersACType | showMoreACType
-export type switchSubStatusACType = ReturnType<typeof switchSubStatusAC>
-export type setUsersACType = ReturnType<typeof setUsersAC>
-export type showMoreACType = ReturnType<typeof showMoreAC>
+
 
 export const switchSubStatusAC = (userID: number) => {
     return {
@@ -36,7 +34,7 @@ export const showMoreAC = () => {
 }
 
 
-export const UsersReducer = (state: UserStateType = usersInitialState, action: ACTypes): UserStateType => { //перед стрелкой пишем тип который возвращается
+export const UsersReducer = (state: UserStateType = usersInitialState, action: ActionsType): UserStateType => { //перед стрелкой пишем тип который возвращается
 
     switch (action.type) {
         case 'SWITCH-SUB-STATUS':

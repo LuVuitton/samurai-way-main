@@ -1,6 +1,5 @@
 import  {ChangeEvent, KeyboardEvent} from "react";
-import {addMessageAC, updateMessengerInputValueAC} from "../../Redux/ActionCreators";
-import {ActionType} from "../../Types";
+import {ActionsType, addMessageAC, updateMessengerInputValueAC} from "../../Redux/ActionCreators";
 import {connect} from "react-redux";
 import {StateType} from "../../Redux/Store";
 import {ReForm} from "../ReusInputButton/ReForm";
@@ -11,7 +10,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
     return {
         onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => dispatch(updateMessengerInputValueAC(e.currentTarget.value)),
         onclickHandler: () => dispatch(addMessageAC()),

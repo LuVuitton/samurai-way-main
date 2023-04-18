@@ -1,6 +1,7 @@
-import {ActionType, ProfileStateType} from "../../Types";
+import { ProfileStateType} from "../../Types";
 import {v1} from "uuid";
 import {dataTime} from "../../DataTime";
+import {ActionsType} from "../ActionCreators";
 
 
 const profileInitialState: ProfileStateType = {
@@ -10,19 +11,25 @@ const profileInitialState: ProfileStateType = {
         // {id: v1(), text: 'second post for feed', time: '00:03'},
     ],
     controlledInputPostValue: '',
+    currentUser: null
 }
 
 
-export const ProfileReducer = (state: ProfileStateType = profileInitialState, action: ActionType):ProfileStateType => { //перед стрелкой пишем тип который возвращается
+export const ProfileReducer = (state: ProfileStateType = profileInitialState, action: ActionsType):ProfileStateType => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
         case 'ADD-POST':
             const newPost = {id: v1(), text: state.controlledInputPostValue, time: dataTime().dataTime.currentTime};
-            state.postsArr = [...state.postsArr, newPost];
-            state.controlledInputPostValue = ''
-            break;
+            return {
+                ...state, postsArr: [...state.postsArr, newPost],
+                controlledInputPostValue: ''
+            }
+
         case 'UPDATE-POST-INPUT-VALUE':
-            state.controlledInputPostValue = action.payload.currentValue
-            break;
+         return {...state, controlledInputPostValue: action.payload.currentValue}
+
+        case "SET-USER-PROFILE": {
+            return {...state, currentUser: action.payload.userProfile}
+        }
     }
     return {...state}
 }

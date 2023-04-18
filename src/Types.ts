@@ -1,5 +1,7 @@
 import {ChangeEvent, KeyboardEvent} from "react";
 import {StateType} from "./Redux/Store";
+import {ActionsType} from "./Redux/ActionCreators";
+import {UserProfileType} from "./components/Profile/ProfilleInfo/ProfileInfo";
 
 // type OldStoreType = {
 //     _subscriber: () => void
@@ -11,7 +13,7 @@ import {StateType} from "./Redux/Store";
 /////////////////////////////////////////
 //State types
 export type ReduxStoreType = {                      //понять шо тут происходит, типизируем только свойства к которым обращаемся?
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionsType) => void
     getState: () => StateType                        //StateType тип создан автоматом
     subscribe: (observer: () => void) => void
 
@@ -39,6 +41,7 @@ export type MessengerStateType = {
 export type ProfileStateType = {
     postsArr: Array<OnePostType>
     controlledInputPostValue: string
+    currentUser: null | UserProfileType
 }
 
 //props types
@@ -56,16 +59,10 @@ export type MessagesListPropsType = {
 }
 
 ///////
-export type ActionType = {
-    type: string
-    payload?: any
-}
-type DispatchType = (action: ActionType) => void
+
 //AC types
-export type addPostACType = () => ActionType
-export type addMessageACType = () => ActionType
-export type updatePostInputValueACType = (currentValue: string) => ActionType
-export type updateMessengerInputValueACType = (currentValue: string) => ActionType
+
+
 
 
 export type ReFormPropsType = {

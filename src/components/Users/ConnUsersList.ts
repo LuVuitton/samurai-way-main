@@ -1,8 +1,7 @@
 import {connect} from "react-redux";
 import {StateType} from "../../Redux/Store";
-import {ACTypes, setUsersAC, showMoreAC, switchSubStatusAC} from "../../Redux/Reducers/UsersReducer";
+import {setUsersAC, showMoreAC, switchSubStatusAC} from "../../Redux/Reducers/UsersReducer";
 import {UsersClassContainer} from "./UsersClassContainer";
-import {OneUserType} from "../../Types";
 
 
 const mapStateToProps = (state: StateType) => {
@@ -11,19 +10,24 @@ const mapStateToProps = (state: StateType) => {
         arr: state.users.users,
         totalUsers: state.users.totalUsers,
         usersReceivedStatus: state.users.usersReceivedStatus
-
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ACTypes) => void) => {
-    return {
-        onClickHandler: (userID: number) => dispatch(switchSubStatusAC(userID)),
-        showMoreForCC: () => dispatch(showMoreAC()),
-        setUsers: (receivedUsersArr: OneUserType[], totalUsers: number) => {
-            dispatch(setUsersAC(receivedUsersArr, totalUsers))
-        }
-    }
-}
+
+export const ConnUsersList =
+    connect(mapStateToProps, {switchSubStatusAC,showMoreAC,setUsersAC})(UsersClassContainer)
+
+
+
+// const mapDispatchToProps = (dispatch: (action: ACTypes) => void) => {
+//     return {
+//         onClickHandler: (userID: number) => dispatch(switchSubStatusAC(userID)),
+//         showMoreForCC: () => dispatch(showMoreAC()),
+//         setUsers: (receivedUsersArr: OneUserType[], totalUsers: number) => {
+//             dispatch(setUsersAC(receivedUsersArr, totalUsers))
+//         }
+//     }
+// }
 
 // на случай когда запефакторим мапДиспатчТуПропс
 // в коннекте не просто одна 'follow', а  связка "ключ: значение" ' follow: follow' ,
@@ -32,4 +36,3 @@ const mapDispatchToProps = (dispatch: (action: ACTypes) => void) => {
 // follow: follow = (userId) => ({ type: FOLLOW, userId })
 // unfollow: unfollow = (userId) => ({ type: UNFOLLOW, userId })
 
-export const ConnUsersList = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)

@@ -1,7 +1,6 @@
 import {ChangeEvent, KeyboardEvent} from "react";
-import {addPostAC, updatePostInputValueAC} from "../../Redux/ActionCreators";
+import {ActionsType, addPostAC, updatePostInputValueAC} from "../../Redux/ActionCreators";
 import {ReForm} from "../ReusInputButton/ReForm";
-import {ActionType} from "../../Types";
 import {connect} from "react-redux";
 import {StateType} from "../../Redux/Store";
 
@@ -11,7 +10,7 @@ const mapStateToProps = (state: StateType) => {
         inputValue: state.profile.controlledInputPostValue
     }
 }
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
     return {
         onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => dispatch(updatePostInputValueAC(e.currentTarget.value)),
         onclickHandler: () => dispatch(addPostAC()),

@@ -2,10 +2,10 @@ import {ChangeEvent, KeyboardEvent} from "react";
 import {ActionsType, addPostAC, updatePostInputValueAC} from "../../Redux/ActionCreators";
 import {ReForm} from "../ReusInputButton/ReForm";
 import {connect} from "react-redux";
-import {StateType} from "../../Redux/Store";
+import {RootStateType} from "../../Redux/Store";
 
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: RootStateType) => {
     return {
         inputValue: state.profile.controlledInputPostValue
     }

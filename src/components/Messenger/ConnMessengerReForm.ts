@@ -1,10 +1,10 @@
 import  {ChangeEvent, KeyboardEvent} from "react";
 import {ActionsType, addMessageAC, updateMessengerInputValueAC} from "../../Redux/ActionCreators";
 import {connect} from "react-redux";
-import {StateType} from "../../Redux/Store";
+import {RootStateType} from "../../Redux/Store";
 import {ReForm} from "../ReusInputButton/ReForm";
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: RootStateType) => {
     return {
         inputValue: state.messenger.controlledInputMessengerValue
     }

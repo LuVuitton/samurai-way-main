@@ -1,6 +1,7 @@
 import sUsList from "./UsersList.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../DAL/UsersAPI";
 
 export type UserPropsType = {
     photos: { small: string | null; large: string | null; }
@@ -9,32 +10,73 @@ export type UserPropsType = {
     name: string
     status: string | null
     userID: number
+    usersAreLoading: number[]
+    setUsersAreLoading:(userID:number, isLoading:boolean)=>void
+
 }
 
-export const User = ({photos, followed, onClickHandler, name, status, userID}: UserPropsType) => {
+
+export const User = ({
+                         photos,
+                         followed,
+                         onClickHandler,
+                         name,
+                         status,
+                         userID,
+                         usersAreLoading,
+                         setUsersAreLoading
+                     }: UserPropsType) => {
+
+    const onFollowHandler = () => {
+        setUsersAreLoading( userID,true)
+        usersAPI.follow(userID)
+            .then(r => {
+                if (r.resultCode === 0) {
+                    onClickHandler(userID)
+                }
+            })
+            .finally(() => {
+                setUsersAreLoading( userID,false)
+
+            })
+
+    }
+
+    const onUnfollowHandler = () => {
+        setUsersAreLoading( userID,true)
+        usersAPI.unFollow(userID)
+            .then(r => {
+                if (r.resultCode === 0) {
+                    onClickHandler(userID)
+                }
+            })
+            .finally(() => {
+                setUsersAreLoading( userID,false)
+            })
+    }
+
+
     return (
         <>
             <div className={sUsList.itemWrapper}>
                 <div>
-                    {/*если есть фото прочти у него смол и дальше*/}
                     <NavLink to={`/profile/${userID}`}>
-                    <img
-                        className={sUsList.avatar}
-                        alt={'avatar'}
-                        src={
-                            photos?.small
-                                ? photos.small
-                                : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJbd87QavjazVx5tJ9sLdp_p2oqfGoN1KUjw&usqp=CAU'
-                        }
-                    ></img>
-                        </NavLink>
+                        <img
+                            className={sUsList.avatar}
+                            alt={'avatar'}
+                            src={
+                                photos?.small
+                                    ? photos.small
+                                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJbd87QavjazVx5tJ9sLdp_p2oqfGoN1KUjw&usqp=CAU'
+                            }
+                        ></img>
+                    </NavLink>
                     <button
-                        className={
-                            followed ? sUsList.subscriptionActive : sUsList.subscription
-                        }
-                        onClick={() => onClickHandler(userID)}
+                        disabled={usersAreLoading.some(e=>e===userID)}
+                        className={followed ? sUsList.subscriptionActive : sUsList.subscription}
+                        onClick={followed ? onUnfollowHandler : onFollowHandler}
                     >
-                        {followed ? 'follow' : 'unfollow'}
+                        {followed ? 'unfollow' : 'follow'}
                     </button>
                 </div>
                 <div>

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../Redux/ActionCreators";
-import {StateType} from "../../Redux/Store";
+import {RootStateType} from "../../Redux/Store";
 import {ProfileInfo} from "./ProfilleInfo/ProfileInfo";
 import { withRouter } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ class ConnProfile extends React.Component<any, any> {
 
 
 ////////////////////////////////////// внизу коннект для который возвращает контейнер сверху
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: RootStateType) => {
     return {
         profile: state.profile.currentUser
     }

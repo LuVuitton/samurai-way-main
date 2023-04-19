@@ -1,6 +1,4 @@
 import {ChangeEvent, KeyboardEvent} from "react";
-import {StateType} from "./Redux/Store";
-import {ActionsType} from "./Redux/ActionCreators";
 import {UserProfileType} from "./components/Profile/ProfilleInfo/ProfileInfo";
 
 // type OldStoreType = {
@@ -12,12 +10,12 @@ import {UserProfileType} from "./components/Profile/ProfilleInfo/ProfileInfo";
 // }
 /////////////////////////////////////////
 //State types
-export type ReduxStoreType = {                      //понять шо тут происходит, типизируем только свойства к которым обращаемся?
-    dispatch: (action: ActionsType) => void
-    getState: () => StateType                        //StateType тип создан автоматом
-    subscribe: (observer: () => void) => void
-
-}
+// export type ReduxStoreType = {                      //понять шо тут происходит, типизируем только свойства к которым обращаемся?
+//     dispatch: (action: ActionsType) => void
+//     getState: () => StateType                        //StateType тип создан автоматом
+//     subscribe: (observer: () => void) => void
+//
+// }
 
 
 type OneDialogueType = {
@@ -69,24 +67,6 @@ export type ReFormPropsType = {
     onKeyPressHandler: (e: KeyboardEvent<HTMLInputElement>) => void
     onclickHandler: () => void
     inputValue: string
-
-}
-
-export type UserStateType = {
-    users: OneUserType[]
-    pageNumbers: number
-    totalUsers:number
-    usersReceivedStatus: boolean
-}
-
-export type OneUserType = {
-
-    followed: boolean
-    id: number
-    name: string
-    photos: { small: null | string, large: null | string }
-    status: null | string
-    uniqueUrlName: null | string
 
 }
 

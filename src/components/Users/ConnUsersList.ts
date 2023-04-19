@@ -1,21 +1,32 @@
 import {connect} from "react-redux";
-import {StateType} from "../../Redux/Store";
-import {clearUsersState, setUsersAC, showMoreAC, switchSubStatusAC} from "../../Redux/Reducers/UsersReducer";
+import {RootStateType} from "../../Redux/Store";
+import {
+    clearUsersState,
+    setUsersAC,
+    setUsersAreLoading,
+    showMoreAC,
+    switchSubStatusAC
+} from "../../Redux/Reducers/UsersReducer";
 import {UsersClassContainer} from "./UsersClassContainer";
+import {setIsLoadingAC} from "../../Redux/Reducers/appReducer";
 
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: RootStateType) => {
     return {
         pageNumbers: state.users.pageNumbers,
         arr: state.users.users,
         totalUsers: state.users.totalUsers,
-        usersReceivedStatus: state.users.usersReceivedStatus
+        usersReceivedStatus: state.users.usersReceivedStatus,
+        isLoading: state.app.isLoading,
+        usersAreLoading: state.users.usersAreLoading
     }
 }
 
 
 export const ConnUsersList =
-    connect(mapStateToProps, {switchSubStatusAC,showMoreAC,setUsersAC, clearUsersState})(UsersClassContainer)
+    connect(mapStateToProps,
+        {switchSubStatusAC,showMoreAC,
+            setUsersAC, clearUsersState ,setIsLoadingAC, setUsersAreLoading})(UsersClassContainer)
 
 
 

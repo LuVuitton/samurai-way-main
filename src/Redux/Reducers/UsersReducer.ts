@@ -1,36 +1,27 @@
-import {OneUserType, UserStateType} from "../../Types";
 import {ActionsType} from "../ActionCreators";
 
-const usersInitialState: UserStateType = {
-    users: [],
+export type UserStateType = typeof usersInitialState
+
+export type OneUserType = {
+    followed: boolean
+    id: number
+    name: string
+    photos: { small: null | string, large: null | string }
+    status: null | string
+    uniqueUrlName: null | string
+}
+
+
+
+const usersInitialState = {
+    users: [] as OneUserType[],
     pageNumbers: 1,
     totalUsers: 0,
-    usersReceivedStatus: false
+    usersReceivedStatus: false,
+    usersAreLoading: [] as number[]
 }
 
 
-export const switchSubStatusAC = (userID: number) => {
-    return {
-        type: 'SWITCH-SUB-STATUS',
-        payload: {
-            userID
-        }
-    } as const
-}
-export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers: number) => {
-    return {
-        type: 'SET-USERS',
-        payload: {
-            receivedUsersArr,
-            totalUsers
-        }
-    } as const
-}
-export const showMoreAC = () => {
-    return {
-        type: 'SHOW-MORE',
-    } as const
-}
 
 
 export const UsersReducer = (state: UserStateType = usersInitialState, action: ActionsType): UserStateType => { //перед стрелкой пишем тип который возвращается
@@ -55,14 +46,54 @@ export const UsersReducer = (state: UserStateType = usersInitialState, action: A
                 pageNumbers: (state.pageNumbers + 1)
             }
         case "CLEAR-USERS-STATE":
-            return {...state,  users: [], pageNumbers: 1}
+            return {...state, users: [], pageNumbers: 1}
+        case "SET-USER-ARE-LOADING": {
+            if (action.payload.isLoading) {
+                return {...state, usersAreLoading: [...state.usersAreLoading, action.payload.userID]}
+            } else {
+                return {...state, usersAreLoading: state.usersAreLoading.filter(e=>e!==action.payload.userID)}
+            }
+        }
     }
-    return state
+    return {...state}
 }
 
 
-export const clearUsersState = ()=> {
+export const clearUsersState = () => {
     return {
         type: 'CLEAR-USERS-STATE'
+    } as const
+}
+export const switchSubStatusAC = (userID: number) => {
+    return {
+        type: 'SWITCH-SUB-STATUS',
+        payload: {
+            userID
+        }
+    } as const
+}
+export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers: number) => {
+    return {
+        type: 'SET-USERS',
+        payload: {
+            receivedUsersArr,
+            totalUsers
+        }
+    } as const
+}
+export const showMoreAC = () => {
+    return {
+        type: 'SHOW-MORE',
+    } as const
+}
+
+
+export const setUsersAreLoading = (userID:number, isLoading:boolean) =>{
+    return {
+        type:'SET-USER-ARE-LOADING',
+        payload: {
+            isLoading,
+            userID,
+        }
     } as const
 }

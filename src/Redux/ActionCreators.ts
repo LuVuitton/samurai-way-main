@@ -1,5 +1,6 @@
-import {clearUsersState, setUsersAC, showMoreAC, switchSubStatusAC} from "./Reducers/UsersReducer";
+import {clearUsersState, setUsersAC, setUsersAreLoading, showMoreAC, switchSubStatusAC} from "./Reducers/UsersReducer";
 import {authMeAC} from "./Reducers/authReducer";
+import {setIsLoadingAC} from "./Reducers/appReducer";
 
 export const addPostAC = () => {
     return {
@@ -48,3 +49,5 @@ export type ActionsType =
     | ReturnType<typeof showMoreAC>
     | ReturnType<typeof authMeAC>
     | ReturnType<typeof clearUsersState>
+    | ReturnType<typeof setIsLoadingAC>
+    | ReturnType<typeof setUsersAreLoading>

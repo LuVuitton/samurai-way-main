@@ -1,5 +1,4 @@
-import {UsersReducer} from "../Redux/Reducers/UsersReducer";
-import {UserStateType} from "../Types";
+import {UsersReducer, UserStateType} from "../Redux/Reducers/UsersReducer";
 
 test('to switch subStatus', () => {
 
@@ -7,6 +6,7 @@ test('to switch subStatus', () => {
         usersReceivedStatus: false,
         totalUsers:0,
         pageNumbers:1,
+        usersAreLoading: [],
         users: [
             {
                 id: 1,

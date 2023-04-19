@@ -3,6 +3,7 @@ import {ProfileReducer} from "./Reducers/ProfileReducer";
 import {MessengerReducer} from "./Reducers/MessengerReducer";
 import {UsersReducer} from "./Reducers/UsersReducer";
 import {authReducer} from "./Reducers/authReducer";
+import {appReducer} from "./Reducers/appReducer";
 
 
 // при первой загрузке приложения он запускает каждый редьюсер по три раза( почему по три), ИНИЦИАЛИЗИРУЕТ СТЕЙТ
@@ -14,14 +15,15 @@ import {authReducer} from "./Reducers/authReducer";
 //          }
 // а после возвращает его оттуда уже без повторного запуска редьюсеров
 
-export type StateType = ReturnType<typeof rootReducer> // автоматически типизирует то что вернется то что после typeof
+export type RootStateType = ReturnType<typeof rootReducer> // автоматически типизирует то что вернется то что после typeof
 
 
 const rootReducer = combineReducers({
     profile: ProfileReducer,
     messenger: MessengerReducer,
-    users:UsersReducer,
-    auth:authReducer
+    users: UsersReducer,
+    auth: authReducer,
+    app: appReducer
 })
 
 const store = createStore(rootReducer)

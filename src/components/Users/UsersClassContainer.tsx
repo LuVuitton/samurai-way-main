@@ -1,8 +1,8 @@
 import React from "react";
-import axios from "axios";
-import {OneUserType} from "../../Types";
 import {UsersList} from "./UsersList";
 import {Preloader} from "../Other/Preloader";
+import {OneUserType} from "../../Redux/Reducers/UsersReducer";
+import {usersAPI} from "../../DAL/UsersAPI";
 
 
 export type UsersClassContainerType = {
@@ -13,7 +13,11 @@ export type UsersClassContainerType = {
     setUsersAC: (receivedUsersArr: OneUserType[], totalUsers: number) => void
     showMoreAC: () => void
     switchSubStatusAC: (userID: number) => void
-    clearUsersState:()=> void
+    clearUsersState: () => void
+    isLoading: boolean
+    setIsLoadingAC:(isLoading:boolean)=> void
+    usersAreLoading:number[]
+    setUsersAreLoading:(userID:number, isLoading:boolean)=>void
 }
 
 export class UsersClassContainer extends React.Component<UsersClassContainerType> {
@@ -22,21 +26,31 @@ export class UsersClassContainer extends React.Component<UsersClassContainerType
         super(props);
     }
 
-    getUsers() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=3&page=${this.props.pageNumbers}`)
-            .then(response => {
-                this.props.setUsersAC(response.data.items, response.data.totalCount)
-            })
-    }
 
     componentDidMount() {
-        this.getUsers()
+        this.props.setIsLoadingAC(true)
+        usersAPI.getUsers(this.props.pageNumbers)
+            .then(r => {
+                this.props.setUsersAC(r.items, r.totalCount)
+            })
+            .finally(() => {
+                this.props.setIsLoadingAC(false)
+            })
     }
 
     showMoreForFC = () => {
         this.props.showMoreAC()
-        this.getUsers()
+        this.props.setIsLoadingAC(true)
+
+        usersAPI.getUsers(this.props.pageNumbers)
+            .then(r => {
+                this.props.setUsersAC(r.items, r.totalCount)
+            })
+            .finally(() => {
+                this.props.setIsLoadingAC(false)
+            })
     }
+
     componentWillUnmount() {
         this.props.clearUsersState()
     }
@@ -46,13 +60,16 @@ export class UsersClassContainer extends React.Component<UsersClassContainerType
 
         return <>
 
-            {!this.props.usersReceivedStatus ? <Preloader /> : //прелоадер как условное выражение для всего сожержимого компоненты
-
+            {!this.props.usersReceivedStatus ? <Preloader/> : //прелоадер как условное выражение для всего сожержимого компоненты
                 <UsersList
                     showMoreForFC={this.showMoreForFC}
                     totalUsers={this.props.totalUsers}
                     arr={this.props.arr}
                     onClickHandler={this.props.switchSubStatusAC}
+                    isLoading={this.props.isLoading}
+                    setIsLoadingAC={this.props.setIsLoadingAC}
+                    usersAreLoading={this.props.usersAreLoading}
+                    setUsersAreLoading={this.props.setUsersAreLoading}
                 />}
         </>
     }

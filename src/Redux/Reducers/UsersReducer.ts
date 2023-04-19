@@ -9,7 +9,6 @@ const usersInitialState: UserStateType = {
 }
 
 
-
 export const switchSubStatusAC = (userID: number) => {
     return {
         type: 'SWITCH-SUB-STATUS',
@@ -18,7 +17,7 @@ export const switchSubStatusAC = (userID: number) => {
         }
     } as const
 }
-export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers:number) => {
+export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers: number) => {
     return {
         type: 'SET-USERS',
         payload: {
@@ -47,13 +46,23 @@ export const UsersReducer = (state: UserStateType = usersInitialState, action: A
                 ...state,
                 users: [...state.users, ...action.payload.receivedUsersArr],
                 totalUsers: action.payload.totalUsers,
-                usersReceivedStatus: true
+                usersReceivedStatus: true,
+                pageNumbers: (state.pageNumbers + 1)
             }
-            case 'SHOW-MORE':
+        case 'SHOW-MORE':
             return {
                 ...state,
-                pageNumbers: state.pageNumbers + 1
+                pageNumbers: (state.pageNumbers + 1)
             }
+        case "CLEAR-USERS-STATE":
+            return {...state,  users: [], pageNumbers: 1}
     }
     return state
+}
+
+
+export const clearUsersState = ()=> {
+    return {
+        type: 'CLEAR-USERS-STATE'
+    } as const
 }

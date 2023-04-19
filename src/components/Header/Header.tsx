@@ -1,11 +1,17 @@
-import React from 'react';
+import s from './Header.module.css'
 
-const Header = () => {
-    return (
-        <div>
-           Header
-        </div>
-    );
+export type HeaderPropsType = {
+    isAuth:boolean
+    userName:string
 }
 
-export default Header;
+export const Header = (props:HeaderPropsType) => {
+
+
+    return <div className={s.mainWrapper}>
+        <div>Header</div>
+
+        <span>{props.isAuth?props.userName:''}</span> <button>{props.isAuth?'LOGOUT':'LOGIN'}</button>
+
+    </div>
+}

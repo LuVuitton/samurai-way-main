@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {StateType} from "../../Redux/Store";
-import {setUsersAC, showMoreAC, switchSubStatusAC} from "../../Redux/Reducers/UsersReducer";
+import {clearUsersState, setUsersAC, showMoreAC, switchSubStatusAC} from "../../Redux/Reducers/UsersReducer";
 import {UsersClassContainer} from "./UsersClassContainer";
 
 
@@ -15,7 +15,7 @@ const mapStateToProps = (state: StateType) => {
 
 
 export const ConnUsersList =
-    connect(mapStateToProps, {switchSubStatusAC,showMoreAC,setUsersAC})(UsersClassContainer)
+    connect(mapStateToProps, {switchSubStatusAC,showMoreAC,setUsersAC, clearUsersState})(UsersClassContainer)
 
 
 

@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {ProfileReducer} from "./Reducers/ProfileReducer";
 import {MessengerReducer} from "./Reducers/MessengerReducer";
 import {UsersReducer} from "./Reducers/UsersReducer";
+import {authReducer} from "./Reducers/authReducer";
 
 
 // при первой загрузке приложения он запускает каждый редьюсер по три раза( почему по три), ИНИЦИАЛИЗИРУЕТ СТЕЙТ
@@ -19,7 +20,8 @@ export type StateType = ReturnType<typeof rootReducer> // автоматичес
 const rootReducer = combineReducers({
     profile: ProfileReducer,
     messenger: MessengerReducer,
-    users:UsersReducer
+    users:UsersReducer,
+    auth:authReducer
 })
 
 const store = createStore(rootReducer)

@@ -10,12 +10,10 @@ import { withRouter } from 'react-router-dom';
 class ConnProfile extends React.Component<any, any> {
 
     componentDidMount() {
-        console.log(this.props)
         let userID = this.props.match.params.userID
         if(!userID){
             userID=2
         }
-        console.log(userID)
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
             .then(r => {
                 this.props.setUserProfile(r.data)

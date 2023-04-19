@@ -1,6 +1,6 @@
 import React from 'react';
 import sApp from "./App.module.css"
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
 import {BrowserRouter, Route} from "react-router-dom";
@@ -14,7 +14,7 @@ const App = () => {
 
             <div className={sApp.mainWrapper}>
                 <div className={sApp.header}>
-                    <Header/>
+                    <HeaderContainer/>
                 </div>
                 <div className={sApp.navBar}>
                     <NavBar/>

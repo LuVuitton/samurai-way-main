@@ -13,6 +13,7 @@ export type UsersClassContainerType = {
     setUsersAC: (receivedUsersArr: OneUserType[], totalUsers: number) => void
     showMoreAC: () => void
     switchSubStatusAC: (userID: number) => void
+    clearUsersState:()=> void
 }
 
 export class UsersClassContainer extends React.Component<UsersClassContainerType> {
@@ -35,6 +36,9 @@ export class UsersClassContainer extends React.Component<UsersClassContainerType
     showMoreForFC = () => {
         this.props.showMoreAC()
         this.getUsers()
+    }
+    componentWillUnmount() {
+        this.props.clearUsersState()
     }
 
 

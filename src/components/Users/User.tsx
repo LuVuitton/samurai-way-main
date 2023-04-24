@@ -1,58 +1,36 @@
 import sUsList from "./UsersList.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../DAL/UsersAPI";
 
 export type UserPropsType = {
     photos: { small: string | null; large: string | null; }
     followed: boolean
-    onClickHandler: (userID: number) => void
     name: string
     status: string | null
     userID: number
     usersAreLoading: number[]
-    setUsersAreLoading:(userID:number, isLoading:boolean)=>void
-
+    onFollowTC: (userID: number) => void
+    onUnfollowTC: (userID: number) => void
 }
 
 
 export const User = ({
                          photos,
                          followed,
-                         onClickHandler,
                          name,
                          status,
                          userID,
                          usersAreLoading,
-                         setUsersAreLoading
+                         onFollowTC,
+                         onUnfollowTC
                      }: UserPropsType) => {
 
     const onFollowHandler = () => {
-        setUsersAreLoading( userID,true)
-        usersAPI.follow(userID)
-            .then(r => {
-                if (r.resultCode === 0) {
-                    onClickHandler(userID)
-                }
-            })
-            .finally(() => {
-                setUsersAreLoading( userID,false)
-
-            })
-
+        onFollowTC(userID)
     }
 
     const onUnfollowHandler = () => {
-        setUsersAreLoading( userID,true)
-        usersAPI.unFollow(userID)
-            .then(r => {
-                if (r.resultCode === 0) {
-                    onClickHandler(userID)
-                }
-            })
-            .finally(() => {
-                setUsersAreLoading( userID,false)
-            })
+        onUnfollowTC(userID)
     }
 
 
@@ -72,7 +50,7 @@ export const User = ({
                         ></img>
                     </NavLink>
                     <button
-                        disabled={usersAreLoading.some(e=>e===userID)}
+                        disabled={usersAreLoading.some(e => e === userID)}
                         className={followed ? sUsList.subscriptionActive : sUsList.subscription}
                         onClick={followed ? onUnfollowHandler : onFollowHandler}
                     >

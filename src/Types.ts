@@ -1,5 +1,5 @@
 import {ChangeEvent, KeyboardEvent} from "react";
-import {UserProfileType} from "./components/Profile/ProfilleInfo/ProfileInfo";
+import {ProfileType} from "./DAL/ProfileAPI";
 
 // type OldStoreType = {
 //     _subscriber: () => void
@@ -39,7 +39,8 @@ export type MessengerStateType = {
 export type ProfileStateType = {
     postsArr: Array<OnePostType>
     controlledInputPostValue: string
-    currentUser: null | UserProfileType
+    currentUser: null | ProfileType
+    statusMessage: string
 }
 
 //props types

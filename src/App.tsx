@@ -1,38 +1,38 @@
 import React from 'react';
 import sApp from "./App.module.css"
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Route} from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
-import {BrowserRouter, Route} from "react-router-dom";
-import {Users} from "./components/Users/Users";
 import Profile from "./components/Profile/Profile";
+import UsersClassContainer from "./components/Users/UsersListClass";
 
-
+// HOC не создает новый уровень в иерархии компонентов,
+// а просто оборачивает существующий компонент, добавляя ему дополнительную функциональность или изменяя его поведение.
 const App = () => {
+
+
     return (
-        <BrowserRouter>
-
-            <div className={sApp.mainWrapper}>
-                <div className={sApp.header}>
-                    <HeaderContainer/>
-                </div>
-                <div className={sApp.navBar}>
-                    <NavBar/>
-                </div>
-                <div className={sApp.profile}>
-                    <Route
-                        path='/Messenger'
-                        render={() => <Messenger />}/>
-                    <Route
-                        path='/Profile/:userID?'
-                        render={() => <Profile />}/>
-                    <Route
-                        path='/Users'
-                        render={()=> <Users />}/>
-                </div>
+        <div className={sApp.mainWrapper}>
+            <div className={sApp.header}>
+                <HeaderContainer/>
             </div>
+            <div className={sApp.navBar}>
+                <NavBar/>
+            </div>
+            <div className={sApp.profile}>
+                <Route
+                    path='/Messenger'
+                    render={() => <Messenger/>}/>
+                <Route
+                    path='/Profile/:userID?'
+                    render={() => <Profile/>}/>
+                <Route
+                    path='/Users'
+                    render={() => <UsersClassContainer/>}/>
+            </div>
+        </div>
 
-        </BrowserRouter>
 
     );
 }

@@ -1,6 +1,6 @@
 import {UsersReducer, UserStateType} from "../Redux/Reducers/UsersReducer";
 
-test('to switch subStatus', () => {
+test('to follow', () => {
 
     const startState: UserStateType = {
         usersReceivedStatus: false,
@@ -45,7 +45,7 @@ test('to switch subStatus', () => {
     }
 
 
-    const endState = UsersReducer(startState, {type: 'SWITCH-SUB-STATUS', payload: {userID: 3}})
+    const endState = UsersReducer(startState, {type: 'FOLLOW', payload: {userID: 3}})
 
 
     expect(endState.users[2].followed).toBe(true)

@@ -1,7 +1,7 @@
 import axios from "axios";
 import {GeneralResponseType} from "../Redux/Reducers/authReducer";
 
-const instance = axios.create({
+export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
@@ -15,15 +15,15 @@ export const usersAPI = {
             })
     },
     follow(userID: number) {
-        return instance.post<GeneralResponseType<{}>>(`follow/${userID}`, {},)
+        return instance.post<GeneralResponseType<{}>>(`follow/${userID}`)
             .then(r => {
                 return r.data
             })
     },
-    unFollow(userID: number){
-        return instance.delete<GeneralResponseType<{}>>(`follow/${userID}`, {},)
+    unFollow(userID: number) {
+        return instance.delete<GeneralResponseType<{}>>(`follow/${userID}`)
             .then(r => {
                 return r.data
             })
-    }
+    },
 }

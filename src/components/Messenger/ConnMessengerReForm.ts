@@ -2,7 +2,7 @@ import  {ChangeEvent, KeyboardEvent} from "react";
 import {ActionsType, addMessageAC, updateMessengerInputValueAC} from "../../Redux/ActionCreators";
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
-import {ReForm} from "../ReusInputButton/ReForm";
+import ReForm from "../Profile/ConnProfileReForm";
 
 const mapStateToProps = (state: RootStateType) => {
     return {

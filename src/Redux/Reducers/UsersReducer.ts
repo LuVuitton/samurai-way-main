@@ -1,4 +1,7 @@
-import {ActionsType} from "../ActionCreators";
+import {ActionsType, setUsersAC, setUsersAreLoading, followAC, unfollowAC} from "../ActionCreators";
+import {usersAPI} from "../../DAL/UsersAPI";
+import {setIsLoadingAC} from "./appReducer";
+import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 
 export type UserStateType = typeof usersInitialState
 
@@ -12,7 +15,6 @@ export type OneUserType = {
 }
 
 
-
 const usersInitialState = {
     users: [] as OneUserType[],
     pageNumbers: 1,
@@ -22,15 +24,18 @@ const usersInitialState = {
 }
 
 
-
-
 export const UsersReducer = (state: UserStateType = usersInitialState, action: ActionsType): UserStateType => { //перед стрелкой пишем тип который возвращается
 
     switch (action.type) {
-        case 'SWITCH-SUB-STATUS':
+        case 'FOLLOW':
             return {
                 ...state,
-                users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: !e.followed} : e)
+                users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: true} : e)
+            }
+        case 'UNFOLLOW':
+            return {
+                ...state,
+                users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: false} : e)
             }
         case 'SET-USERS':
             return {
@@ -51,7 +56,7 @@ export const UsersReducer = (state: UserStateType = usersInitialState, action: A
             if (action.payload.isLoading) {
                 return {...state, usersAreLoading: [...state.usersAreLoading, action.payload.userID]}
             } else {
-                return {...state, usersAreLoading: state.usersAreLoading.filter(e=>e!==action.payload.userID)}
+                return {...state, usersAreLoading: state.usersAreLoading.filter(e => e !== action.payload.userID)}
             }
         }
     }
@@ -59,41 +64,39 @@ export const UsersReducer = (state: UserStateType = usersInitialState, action: A
 }
 
 
-export const clearUsersState = () => {
-    return {
-        type: 'CLEAR-USERS-STATE'
-    } as const
-}
-export const switchSubStatusAC = (userID: number) => {
-    return {
-        type: 'SWITCH-SUB-STATUS',
-        payload: {
-            userID
-        }
-    } as const
-}
-export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers: number) => {
-    return {
-        type: 'SET-USERS',
-        payload: {
-            receivedUsersArr,
-            totalUsers
-        }
-    } as const
-}
-export const showMoreAC = () => {
-    return {
-        type: 'SHOW-MORE',
-    } as const
+export const getUsersTC = (pageNumber: number) => (dispatch: AppDispatchType) => {
+    dispatch(setIsLoadingAC(true))
+    usersAPI.getUsers(pageNumber)
+        .then(r => {
+            dispatch(setUsersAC(r.items, r.totalCount))
+        })
+        .finally(() => {
+            dispatch(setIsLoadingAC(false))
+        })
 }
 
+export const onFollowTC = (userID: number) => (dispatch: AppDispatchType) => {
+    dispatch(setUsersAreLoading(userID, true))
+    usersAPI.follow(userID)
+        .then(r => {
+            if (r.resultCode === 0) {
+                dispatch(followAC(userID))
+            }
+        })
+        .finally(() => {
+            dispatch(setUsersAreLoading(userID, false))
+        })
+}
 
-export const setUsersAreLoading = (userID:number, isLoading:boolean) =>{
-    return {
-        type:'SET-USER-ARE-LOADING',
-        payload: {
-            isLoading,
-            userID,
-        }
-    } as const
+export const onUnfollowTC = (userID: number) => (dispatch: AppDispatchType) => {
+    dispatch(setUsersAreLoading(userID, true))
+    usersAPI.unFollow(userID)
+        .then(r => {
+            if (r.resultCode === 0) {
+                dispatch(unfollowAC(userID))
+            }
+        })
+        .finally(() => {
+            dispatch(  setUsersAreLoading(userID, false))
+        })
 }

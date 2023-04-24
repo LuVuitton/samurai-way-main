@@ -1,26 +1,8 @@
-export type UserProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-    photos: {
-        small: string
-        large: string
-    }
-}
+import {ProfileType} from "../../../DAL/ProfileAPI";
+import EditableTextClass from '../../EditableText/EditableText'
 
 export type ProfileInfoPropsType = {
-    userData: UserProfileType
+    userData: ProfileType | null
 }
 
 
@@ -32,6 +14,7 @@ export const ProfileInfo = (props:ProfileInfoPropsType ) => {
 
     return (
         <>
+            <EditableTextClass />
             Name <span>{props.userData.fullName}</span>
             <div>{props.userData.photos? <img src={props.userData.photos.small} alt="photo"/>:<span>PHOTO</span>}</div>
         </>

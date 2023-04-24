@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {ProfileReducer} from "./Reducers/ProfileReducer";
 import {MessengerReducer} from "./Reducers/MessengerReducer";
 import {UsersReducer} from "./Reducers/UsersReducer";
 import {authReducer} from "./Reducers/authReducer";
 import {appReducer} from "./Reducers/appReducer";
+import Thunk from "redux-thunk";
 
 
 // при первой загрузке приложения он запускает каждый редьюсер по три раза( почему по три), ИНИЦИАЛИЗИРУЕТ СТЕЙТ
@@ -26,7 +27,7 @@ const rootReducer = combineReducers({
     app: appReducer
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(Thunk))
 
 export default store
 

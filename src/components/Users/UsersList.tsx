@@ -6,33 +6,30 @@ import {OneUserType} from "../../Redux/Reducers/UsersReducer";
 export type UsersListPropsType = {
     arr: OneUserType[]
     totalUsers: number
-    onClickHandler: (userID: number) => void
-    showMoreForFC: () => void
-    isLoading:boolean
-    setIsLoadingAC:(isLoading:boolean)=>void
-    usersAreLoading:number[]
-    setUsersAreLoading:(userID:number, isLoading:boolean)=>void
-
+    showMore: () => void
+    isLoading: boolean
+    setIsLoadingAC: (isLoading: boolean) => void
+    usersAreLoading: number[]
+    onFollowTC:(userID:number)=>void
+    onUnfollowTC:(userID:number)=>void
 }
 
 
 export const UsersList = (props: UsersListPropsType) => {
 
-    const onClickHandler = (userID: number) => props.onClickHandler(userID)
 
-    const mappedUsers = props.arr.map((e, i) =>{
-     return   <User
-        userID={e.id}
-        key={i}
-        name={e.name}
-        status={e.status}
-        followed={e.followed}
-        photos={e.photos}
-        onClickHandler={onClickHandler}
-        usersAreLoading={props.usersAreLoading}
-        setUsersAreLoading={props.setUsersAreLoading}
-
-    />
+    const mappedUsers = props.arr.map((e, i) => {
+        return <User
+            userID={e.id}
+            key={i}
+            name={e.name}
+            status={e.status}
+            followed={e.followed}
+            photos={e.photos}
+            usersAreLoading={props.usersAreLoading}
+            onFollowTC={props.onFollowTC}
+            onUnfollowTC={props.onUnfollowTC}
+        />
     })
 
     return (
@@ -40,7 +37,7 @@ export const UsersList = (props: UsersListPropsType) => {
             <div>{props.totalUsers}</div>
             {mappedUsers}
             <div>{props.arr.length} users displayed</div>
-            <button disabled={props.isLoading} className={sUsList.showMoreB} onClick={props.showMoreForFC}>SHOW MORE</button>
+            <button disabled={props.isLoading} className={sUsList.showMoreB} onClick={props.showMore}>SHOW MORE</button>
         </div>
     )
 }

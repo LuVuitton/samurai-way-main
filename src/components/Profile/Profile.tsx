@@ -1,7 +1,9 @@
 import React from 'react';
-import {ConnProfileReForm} from "./ConnProfileReForm";
+import ConnProfileReForm from "./ConnProfileReForm";
 import {ConnPostsList} from "./PostList/ConnPostsList";
-import ConnProfile from "./ContainerProfile";
+import ProfileClass from "./ContainerProfile";
+
+
 
 
 
@@ -10,7 +12,7 @@ const Profile = () => {
         <div>
             <ConnProfileReForm/>
             <ConnPostsList/>
-            <ConnProfile/>
+            <ProfileClass/>
         </div>
     );
 }

@@ -1,8 +1,19 @@
 import {ChangeEvent, KeyboardEvent} from "react";
 import {ActionsType, addPostAC, updatePostInputValueAC} from "../../Redux/ActionCreators";
-import {ReForm} from "../ReusInputButton/ReForm";
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
+import {ReFormPropsType} from "../../Types";
+import sReForm from '../ReusInputButton/ReForm.module.css'
+
+const ReForm = (props: ReFormPropsType) => {
+    return <>
+        <input type={'text'} onChange={props.onChangeHandler}
+               value={props.inputValue}
+               onKeyPress={props.onKeyPressHandler}
+        />
+        <button className={sReForm.reButton} onClick={props.onclickHandler}>ADD</button>
+    </>
+}
 
 
 const mapStateToProps = (state: RootStateType) => {
@@ -19,4 +30,4 @@ const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
 }
 
 
-export const ConnProfileReForm = connect(mapStateToProps, mapDispatchToProps)(ReForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ReForm)

@@ -5,6 +5,7 @@ import {UsersReducer} from "./Reducers/UsersReducer";
 import {authReducer} from "./Reducers/authReducer";
 import {appReducer} from "./Reducers/appReducer";
 import Thunk from "redux-thunk";
+import {reducer as formReducer} from "redux-form";
 
 
 // при первой загрузке приложения он запускает каждый редьюсер по три раза( почему по три), ИНИЦИАЛИЗИРУЕТ СТЕЙТ
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     messenger: MessengerReducer,
     users: UsersReducer,
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    form: formReducer,
 })
 
 const store = createStore(rootReducer, applyMiddleware(Thunk))

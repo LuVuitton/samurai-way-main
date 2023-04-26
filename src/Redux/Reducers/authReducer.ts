@@ -7,18 +7,19 @@ import {setIsLoadingAC} from "./appReducer";
 const initState = {
     authData: {} as MeDataType,
     isAuth: false,
-    myID:2
+    myID: 2,
 }
 
 export const authReducer = (state: typeof initState = initState, action: ActionsType): typeof initState => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
         case "AUTH-ME":
             return {...state, authData: action.payload.meData, isAuth: true, myID: action.payload.meData.id}
+        case "LOGOUT":
+            return {...state, authData: {} as MeDataType, isAuth: false}
+
     }
     return {...state}
 }
-
-
 
 
 export const checkMETC = () => (dispatch: AppDispatchType) => {
@@ -34,9 +35,43 @@ export const checkMETC = () => (dispatch: AppDispatchType) => {
         })
 }
 
+export const loginTC = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
+    dispatch(setIsLoadingAC(true))
+    authAPI.login(loginData)
+        .then(r => {
+            if (r.data.resultCode === 0) {
+                dispatch(checkMETC())
+            }
+        })
+        .finally(() => {
+            dispatch(setIsLoadingAC(false))
+        })
+}
 
 
+export const logoutTC = () => (dispatch: AppDispatchType) => {
+    authAPI.logout()
+        .then(r => {
+            if (r.data.resultCode === 0) {
+                dispatch(logoutAC)
+            }
+        })
+}
 
+
+export const logoutAC = () => {
+    return {
+        type: 'LOGOUT',
+    } as const
+}
+
+
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: boolean
+}
 
 export type MeDataType = {
     id: number,
@@ -44,7 +79,7 @@ export type MeDataType = {
     login: string
 }
 
-export type GeneralResponseType<D={}> = {
+export type GeneralResponseType<D = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors: string[]

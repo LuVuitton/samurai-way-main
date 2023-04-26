@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
 import Profile from "./components/Profile/Profile";
 import UsersClassContainer from "./components/Users/UsersListClass";
+import LoginContainer from "./components/Login/LoginContainer";
 
 // HOC не создает новый уровень в иерархии компонентов,
 // а просто оборачивает существующий компонент, добавляя ему дополнительную функциональность или изменяя его поведение.
@@ -22,8 +23,11 @@ const App = () => {
             </div>
             <div className={sApp.profile}>
                 <Route
-                    path='/Messenger'
-                    render={() => <Messenger/>}/>
+                    path='/login'
+                    render={() => <LoginContainer/>}/>
+                <Route
+                path='/Messenger'
+                render={() => <Messenger/>}/>
                 <Route
                     path='/Profile/:userID?'
                     render={() => <Profile/>}/>

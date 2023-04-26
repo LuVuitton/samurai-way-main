@@ -1,23 +1,27 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {RootStateType} from "../../Redux/Store";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
-import {Login} from "./Login";
+import {LoginReduxForm} from "./Login";
+import {LoginDataType, loginTC} from "../../Redux/Reducers/authReducer";
 
 
 class LoginContainer extends React.Component<LoginContainerPropsType, any> {
 
+    onSubmit =(formData:any)=> {
+        console.log(formData)
+        this.props.loginTC(formData)
+    }
 
     render() {
-        return <Login/>
+        return <LoginReduxForm onSubmit={this.onSubmit}/>
     }
 }
-const mapStateToProps = (state: RootStateType) => {
-    return {}
-}
-const mapDispatchToProps = (dispatch: AppDispatchType) => {
-    return {}
-}
+
+
+const mapStateToProps = () => ({})
+const mapDispatchToProps = (dispatch: AppDispatchType) => ({
+    loginTC:(loginData:LoginDataType)=>dispatch(loginTC(loginData))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
 
@@ -27,4 +31,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
 
 
 type MapStatePropsType = {}
-export type LoginContainerPropsType = MapStatePropsType
+type MapDispatchPropsType={
+    loginTC:(loginData:LoginDataType)=>void
+}
+export type LoginContainerPropsType = MapStatePropsType & MapDispatchPropsType

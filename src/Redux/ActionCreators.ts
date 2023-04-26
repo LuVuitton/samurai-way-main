@@ -1,5 +1,5 @@
 import {OneUserType} from "./Reducers/UsersReducer";
-import {MeDataType} from "./Reducers/authReducer";
+import {logoutAC, MeDataType} from "./Reducers/authReducer";
 import {setIsLoadingAC} from "./Reducers/appReducer";
 
 export const addPostAC = () =>
@@ -45,3 +45,4 @@ export type ActionsType =
     | ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setStatusMessageAC>
+    | ReturnType<typeof logoutAC>

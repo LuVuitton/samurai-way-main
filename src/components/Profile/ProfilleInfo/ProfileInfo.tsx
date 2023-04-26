@@ -1,5 +1,5 @@
-import {ProfileType} from "../../../DAL/ProfileAPI";
 import EditableTextClass from '../../EditableText/EditableText'
+import {ProfileType} from "../../../Redux/Reducers/ProfileReducer";
 
 export type ProfileInfoPropsType = {
     userData: ProfileType | null

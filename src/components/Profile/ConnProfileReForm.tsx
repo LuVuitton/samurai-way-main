@@ -1,9 +1,9 @@
 import {ChangeEvent, KeyboardEvent} from "react";
-import {ActionsType, addPostAC, updatePostInputValueAC} from "../../Redux/ActionCreators";
+import {ActionsType} from "../../Redux/ActionCreators";
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
-import {ReFormPropsType} from "../../Types";
 import sReForm from '../ReusInputButton/ReForm.module.css'
+import {addPostAC, updatePostInputValueAC} from "../../Redux/Reducers/ProfileReducer";
 
 const ReForm = (props: ReFormPropsType) => {
     return <>
@@ -31,3 +31,12 @@ const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReForm)
+
+
+export type ReFormPropsType = {
+    onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    onKeyPressHandler: (e: KeyboardEvent<HTMLInputElement>) => void
+    onclickHandler: () => void
+    inputValue: string
+
+}

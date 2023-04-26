@@ -1,9 +1,8 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
-import {getUsersTC, onFollowTC, onUnfollowTC} from "../../Redux/Reducers/UsersReducer";
+import {clearUsersState, getUsersTC, onFollowTC, onUnfollowTC, showMoreAC} from "../../Redux/Reducers/UsersReducer";
 import {setIsLoadingAC} from "../../Redux/Reducers/appReducer";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
-import {clearUsersState, showMoreAC} from "../../Redux/ActionCreators";
 import React from "react";
 import {UsersList} from "./UsersList";
 import {Preloader} from "../Other/Preloader";

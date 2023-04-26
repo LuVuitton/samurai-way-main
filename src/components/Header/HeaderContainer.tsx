@@ -1,6 +1,6 @@
 import React from 'react';
 import {setIsLoadingAC} from '../../Redux/Reducers/appReducer';
-import {checkMETC, logoutTC} from '../../Redux/Reducers/authReducer';
+import {logoutTC} from '../../Redux/Reducers/authReducer';
 import {RootStateType} from "../../Redux/Store";
 import {connect} from "react-redux";
 import {Header} from "./Header";
@@ -11,18 +11,14 @@ export type HeaderContainerPropsType = {
     isAuth: boolean
     userName: string
     isLoading: boolean
-    checkMETC: () => void
-    logoutTC:()=>void
+    logoutTC: () => void
 }
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType, any> {
 
-    componentDidMount() {
-        this.props.checkMETC()
-    }
 
-    onClickHandler =()=> {
-        console.log(this)
+
+    onClickHandler = () => {
         this.props.logoutTC()
     }
 
@@ -44,4 +40,4 @@ const mapStateToProps = (state: RootStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {checkMETC, setIsLoadingAC, logoutTC})(HeaderContainer)
+export default connect(mapStateToProps, {setIsLoadingAC, logoutTC})(HeaderContainer)

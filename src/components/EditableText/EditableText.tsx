@@ -2,8 +2,7 @@ import React, {ChangeEvent} from "react";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
-import {updateProfileStatusTC} from "../../Redux/Reducers/ProfileReducer";
-import {setStatusMessageAC} from "../../Redux/ActionCreators";
+import {setStatusMessageAC, updateProfileStatusTC} from "../../Redux/Reducers/ProfileReducer";
 
 //костыль с забайдненым this нужен что бы в методе this был, до этого он почему то его не находит// уже работает
 class EditableTextClass extends React.Component<EditableTextPropsType, EditableTextLocalStateType> {

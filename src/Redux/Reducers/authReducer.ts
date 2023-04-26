@@ -1,7 +1,8 @@
-import {ActionsType, authMeAC} from "../ActionCreators";
+import {ActionsType} from "../ActionCreators";
 import {authAPI} from "../../DAL/AuthAPI";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 import {setIsLoadingAC} from "./appReducer";
+import {stopSubmit} from "redux-form";
 
 
 const initState = {
@@ -12,9 +13,9 @@ const initState = {
 
 export const authReducer = (state: typeof initState = initState, action: ActionsType): typeof initState => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
-        case "AUTH-ME":
+        case "auth/AUTH-ME":
             return {...state, authData: action.payload.meData, isAuth: true, myID: action.payload.meData.id}
-        case "LOGOUT":
+        case "auth/LOGOUT":
             return {...state, authData: {} as MeDataType, isAuth: false}
 
     }
@@ -24,7 +25,7 @@ export const authReducer = (state: typeof initState = initState, action: Actions
 
 export const checkMETC = () => (dispatch: AppDispatchType) => {
     dispatch(setIsLoadingAC(true))
-    authAPI.checkME()
+    return authAPI.checkME()
         .then(r => {
             if (r.resultCode === 0) {
                 dispatch(authMeAC(r.data))
@@ -41,6 +42,9 @@ export const loginTC = (loginData: LoginDataType) => (dispatch: AppDispatchType)
         .then(r => {
             if (r.data.resultCode === 0) {
                 dispatch(checkMETC())
+            } else {
+                const message = r.data.messages.length ? r.data.messages[0] : 'come error'
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
         .finally(() => {
@@ -53,7 +57,7 @@ export const logoutTC = () => (dispatch: AppDispatchType) => {
     authAPI.logout()
         .then(r => {
             if (r.data.resultCode === 0) {
-                dispatch(logoutAC)
+                dispatch(logoutAC())
             }
         })
 }
@@ -61,9 +65,11 @@ export const logoutTC = () => (dispatch: AppDispatchType) => {
 
 export const logoutAC = () => {
     return {
-        type: 'LOGOUT',
+        type: 'auth/LOGOUT',
     } as const
 }
+export const authMeAC = (meData: MeDataType) =>
+    ({type: 'auth/AUTH-ME', payload: {meData}} as const)
 
 
 export type LoginDataType = {

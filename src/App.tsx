@@ -7,41 +7,70 @@ import Messenger from "./components/Messenger/Messenger";
 import Profile from "./components/Profile/Profile";
 import UsersClassContainer from "./components/Users/UsersListClass";
 import LoginContainer from "./components/Login/LoginContainer";
+import {connect} from "react-redux";
+import {initializeAppTC} from "./Redux/Reducers/appReducer";
+import {RootStateType} from "./Redux/Store";
+import {Preloader} from "./components/Other/Preloader";
 
 // HOC не создает новый уровень в иерархии компонентов,
 // а просто оборачивает существующий компонент, добавляя ему дополнительную функциональность или изменяя его поведение.
-const App = () => {
 
+class App extends React.Component<AppPropsType,any> {
 
-    return (
-        <div className={sApp.mainWrapper}>
-            <div className={sApp.header}>
-                <HeaderContainer/>
+    componentDidMount() {
+        this.props.initializeAppTC()
+    }
+
+    render() {
+        if (!this.props.isInitialized) return <Preloader/>
+        return (
+            <div className={sApp.mainWrapper}>
+                <div className={sApp.header}>
+                    <HeaderContainer/>
+                </div>
+                <div className={sApp.navBar}>
+                    <NavBar/>
+                </div>
+                <div className={sApp.profile}>
+                    <Route
+                        path='/login'
+                        render={() => <LoginContainer/>}/>
+                    <Route
+                        path='/Messenger'
+                        render={() => <Messenger/>}/>
+                    <Route
+                        path='/Profile/:userID?'
+                        render={() => <Profile/>}/>
+                    <Route
+                        path='/Users'
+                        render={() => <UsersClassContainer/>}/>
+                </div>
             </div>
-            <div className={sApp.navBar}>
-                <NavBar/>
-            </div>
-            <div className={sApp.profile}>
-                <Route
-                    path='/login'
-                    render={() => <LoginContainer/>}/>
-                <Route
-                path='/Messenger'
-                render={() => <Messenger/>}/>
-                <Route
-                    path='/Profile/:userID?'
-                    render={() => <Profile/>}/>
-                <Route
-                    path='/Users'
-                    render={() => <UsersClassContainer/>}/>
-            </div>
-        </div>
 
 
-    );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state:RootStateType)=> {
+    return {
+        isInitialized:state.app.isInitialized
+    }
+}
+
+export default connect(mapStateToProps, {initializeAppTC})(App);
+
+
+
+
+
+
+export type AppPropsType = MapStateProps & MapDispatchProps
+type MapStateProps = ReturnType<typeof mapStateToProps>
+type MapDispatchProps = {initializeAppTC:()=> void }
+
+
+
 
 
 //BIND STORE(oldStore)

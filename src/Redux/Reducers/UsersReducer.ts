@@ -1,4 +1,4 @@
-import {ActionsType, setUsersAC, setUsersAreLoading, followAC, unfollowAC} from "../ActionCreators";
+import {ActionsType} from "../ActionCreators";
 import {usersAPI} from "../../DAL/UsersAPI";
 import {setIsLoadingAC} from "./appReducer";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
@@ -24,20 +24,20 @@ const usersInitialState = {
 }
 
 
-export const UsersReducer = (state: UserStateType = usersInitialState, action: ActionsType): UserStateType => { //перед стрелкой пишем тип который возвращается
+export const usersReducer = (state: UserStateType = usersInitialState, action: ActionsType): UserStateType => { //перед стрелкой пишем тип который возвращается
 
     switch (action.type) {
-        case 'FOLLOW':
+        case 'users/FOLLOW':
             return {
                 ...state,
                 users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: true} : e)
             }
-        case 'UNFOLLOW':
+        case 'users/UNFOLLOW':
             return {
                 ...state,
                 users: state.users.map(e => e.id === action.payload.userID ? {...e, followed: false} : e)
             }
-        case 'SET-USERS':
+        case 'users/SET-USERS':
             return {
                 ...state,
                 users: [...state.users, ...action.payload.receivedUsersArr],
@@ -45,14 +45,14 @@ export const UsersReducer = (state: UserStateType = usersInitialState, action: A
                 usersReceivedStatus: true,
                 pageNumbers: (state.pageNumbers + 1)
             }
-        case 'SHOW-MORE':
+        case 'users/SHOW-MORE':
             return {
                 ...state,
                 pageNumbers: (state.pageNumbers + 1)
             }
-        case "CLEAR-USERS-STATE":
+        case "users/CLEAR-USERS-STATE":
             return {...state, users: [], pageNumbers: 1}
-        case "SET-USER-ARE-LOADING": {
+        case "users/SET-USER-ARE-LOADING": {
             if (action.payload.isLoading) {
                 return {...state, usersAreLoading: [...state.usersAreLoading, action.payload.userID]}
             } else {
@@ -100,3 +100,17 @@ export const onUnfollowTC = (userID: number) => (dispatch: AppDispatchType) => {
             dispatch(  setUsersAreLoading(userID, false))
         })
 }
+
+
+export const unfollowAC = (userID: number) =>
+    ({type: 'users/UNFOLLOW', payload: {userID}} as const);
+export const setUsersAC = (receivedUsersArr: OneUserType[], totalUsers: number) =>
+    ({type: 'users/SET-USERS', payload: {receivedUsersArr, totalUsers}} as const);
+export const setUsersAreLoading = (userID: number, isLoading: boolean) =>
+    ({type: 'users/SET-USER-ARE-LOADING', payload: {isLoading, userID}} as const);
+export const followAC = (userID: number) =>
+    ({type: 'users/FOLLOW', payload: {userID}} as const);
+export const clearUsersState = () =>
+    ({type: 'users/CLEAR-USERS-STATE'} as const);
+export const showMoreAC = () =>
+    ({type: 'users/SHOW-MORE'} as const);

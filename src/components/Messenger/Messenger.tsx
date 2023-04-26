@@ -12,7 +12,6 @@ const Messenger = () => {
 
             <ConnDialogList/>
             <ConnMessagesList/>
-
             {/* в коннекте фун что формируют пропсы вызывают диспатч забайдненый на стор как мы делали сами в начале*/}
             <ConnMessengerReForm/>
 

@@ -1,5 +1,6 @@
 import {instance} from "./UsersAPI";
 import {GeneralResponseType} from "../Redux/Reducers/authReducer";
+import {ProfileType} from "../Redux/Reducers/ProfileReducer";
 
 
 export const profileAPI = {
@@ -16,23 +17,3 @@ export const profileAPI = {
 }
 
 
-export type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-    photos: {
-        small: string
-        large: string
-    }
-}

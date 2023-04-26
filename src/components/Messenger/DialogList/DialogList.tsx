@@ -1,8 +1,8 @@
 import React from 'react';
-import {DialogListPropsType} from "../../../Types";
+import {OneDialogueType} from "../../../Redux/Reducers/MessengerReducer";
 
 
-const DialogList = (props: DialogListPropsType) => {
+const DialogList = (props: {arr: OneDialogueType[]}) => {
     return (
         <div>
             {props.arr.map(e => <div key={e.id}>{e.userName}</div>)}

@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {ProfileReducer} from "./Reducers/ProfileReducer";
+import {profileReducer} from "./Reducers/ProfileReducer";
 import {MessengerReducer} from "./Reducers/MessengerReducer";
-import {UsersReducer} from "./Reducers/UsersReducer";
+import {usersReducer} from "./Reducers/UsersReducer";
 import {authReducer} from "./Reducers/authReducer";
 import {appReducer} from "./Reducers/appReducer";
 import Thunk from "redux-thunk";
@@ -21,9 +21,9 @@ export type RootStateType = ReturnType<typeof rootReducer> // автоматич
 
 
 const rootReducer = combineReducers({
-    profile: ProfileReducer,
+    profile: profileReducer,
     messenger: MessengerReducer,
-    users: UsersReducer,
+    users: usersReducer,
     auth: authReducer,
     app: appReducer,
     form: formReducer,

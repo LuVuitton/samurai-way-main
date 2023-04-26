@@ -1,7 +1,6 @@
-import { ProfileStateType} from "../../Types";
 import {v1} from "uuid";
 import {dataTime} from "../../DataTime";
-import {ActionsType, setStatusMessageAC, setUserProfile} from "../ActionCreators";
+import {ActionsType} from "../ActionCreators";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 import {profileAPI} from "../../DAL/ProfileAPI";
 
@@ -18,49 +17,94 @@ const profileInitialState: ProfileStateType = {
 }
 
 
-export const ProfileReducer = (state: ProfileStateType = profileInitialState, action: ActionsType):ProfileStateType => { //перед стрелкой пишем тип который возвращается
+export const profileReducer = (state: ProfileStateType = profileInitialState, action: ActionsType): ProfileStateType => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
-        case 'ADD-POST':
+        case 'profile/ADD-POST':
             const newPost = {id: v1(), text: state.controlledInputPostValue, time: dataTime().dataTime.currentTime};
             return {
                 ...state, postsArr: [...state.postsArr, newPost],
                 controlledInputPostValue: ''
             }
 
-        case 'UPDATE-POST-INPUT-VALUE':
-         return {...state, controlledInputPostValue: action.payload.currentValue}
+        case 'profile/UPDATE-POST-INPUT-VALUE':
+            return {...state, controlledInputPostValue: action.payload.currentValue}
 
-        case "SET-USER-PROFILE":
+        case "profile/SET-USER-PROFILE":
             return {...state, currentUser: action.payload.userProfile}
 
-        case "SET-STATUS_MESSAGE":
-            return {...state, statusMessage:action.payload.statusMessage}
+        case "profile/SET-STATUS_MESSAGE":
+            return {...state, statusMessage: action.payload.statusMessage}
 
     }
     return {...state}
 }
 
 
-export const setUserProfileTC =(userID:number)=>(dispatch:AppDispatchType)=> {
+export const setUserProfileTC = (userID: number) => (dispatch: AppDispatchType) => {
     profileAPI.getProfile(userID)
         .then(r => {
-           dispatch(setUserProfile(r.data))
+            dispatch(setUserProfile(r.data))
         })
 }
 
-export const getProfileStatusTC=(userID:number)=>(dispatch:AppDispatchType)=> {
+export const getProfileStatusTC = (userID: number) => (dispatch: AppDispatchType) => {
     profileAPI.getProfileStatus(userID)
-        .then(r=> {
+        .then(r => {
             dispatch(setStatusMessageAC(r.data))
         })
 }
 
 
-export const updateProfileStatusTC=(statusMessage:string)=>(dispatch:AppDispatchType)=>{
+export const updateProfileStatusTC = (statusMessage: string) => (dispatch: AppDispatchType) => {
     profileAPI.updateProfileStatus(statusMessage)
-        .then((r)=>{
+        .then((r) => {
             if (r.data.resultCode === 0) {
                 dispatch(setStatusMessageAC(statusMessage))
             }
         })
+}
+
+
+export const setStatusMessageAC = (statusMessage: string) =>
+    ({type: 'profile/SET-STATUS_MESSAGE', payload: {statusMessage}} as const)
+export const setUserProfile = (userProfile: any) =>
+    ({type: 'profile/SET-USER-PROFILE', payload: {userProfile}} as const);
+export const addPostAC = () =>
+    ({type: 'profile/ADD-POST'} as const);
+export const updatePostInputValueAC = (currentValue: string) =>
+    ({type: 'profile/UPDATE-POST-INPUT-VALUE', payload: {currentValue}} as const);
+
+
+export type ProfileStateType = {
+    postsArr: Array<OnePostType>
+    controlledInputPostValue: string
+    currentUser: null | ProfileType
+    statusMessage: string
+}
+
+export type OnePostType = {
+    id: string
+    text: string | undefined //пофиксить андефайнд
+    time: string
+}
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
 }

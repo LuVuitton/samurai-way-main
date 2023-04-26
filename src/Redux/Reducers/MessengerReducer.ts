@@ -1,4 +1,3 @@
-import { MessengerStateType} from "../../Types";
 import {v1} from "uuid";
 import {ActionsType} from "../ActionCreators";
 
@@ -18,10 +17,10 @@ const messengerInitialState:MessengerStateType = {
 
 export const MessengerReducer = (state: MessengerStateType = messengerInitialState, action: ActionsType):MessengerStateType => { //перед стрелкой пишем тип который возвращается
     switch (action.type) {
-            case 'UPDATE-MESSENGER-INPUT-VALUE':
+            case 'auth/UPDATE-MESSENGER-INPUT-VALUE':
                 state.controlledInputMessengerValue = action.payload.currentValue
                 break;
-            case 'ADD-MESSAGE':
+            case 'auth/ADD-MESSAGE':
                 state.messagesArr = [...state.messagesArr, {
                     id: v1(),
                     text: state.controlledInputMessengerValue
@@ -30,3 +29,27 @@ export const MessengerReducer = (state: MessengerStateType = messengerInitialSta
     }
     return {...state}
 }
+
+
+export const updateMessengerInputValueAC = (currentValue: string) =>
+    ({type: 'auth/UPDATE-MESSENGER-INPUT-VALUE', payload: {currentValue}} as const);
+export const addMessageAC = () =>
+    ({type: 'auth/ADD-MESSAGE'} as const);
+
+
+
+export type MessengerStateType = {
+    dialoguesArr: Array<OneDialogueType>
+    messagesArr: Array<OneMessageType>
+    controlledInputMessengerValue: string
+}
+
+export type OneDialogueType = {
+    id: string
+    userName: string
+}
+export type OneMessageType = {
+    id: string
+    text: string
+}
+

@@ -3,7 +3,10 @@ import {GeneralResponseType} from "../Redux/Reducers/authReducer";
 
 export const instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/'
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    headers: {
+        'API-KEY':'0ba2ec4-2ba1-411d-b8a2-7b24b30ac2ca'
+    }
 })
 
 

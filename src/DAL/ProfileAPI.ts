@@ -14,6 +14,12 @@ export const profileAPI = {
     updateProfileStatus(newStatus: string) {
         return instance.put<GeneralResponseType>(`/profile/status`, {status: newStatus})
     },
+    uploadProfilePhoto(image:File) {
+        const formData = new FormData();
+        formData.append('image', image)
+
+        return instance.put<GeneralResponseType<{ photos: { small: string, large: string } }>>('/profile/photo', formData, {headers: {'Content-Type':'multipart/form-data'}})
+    }
 }
 
 

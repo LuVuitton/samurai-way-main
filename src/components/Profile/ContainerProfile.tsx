@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
 import {ProfileInfo} from "./ProfilleInfo/ProfileInfo";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {getProfileStatusTC, setUserProfileTC} from "../../Redux/Reducers/ProfileReducer";
+import {getProfileStatusTC, setUserProfileTC, uploadProfilePhotoTC} from "../../Redux/Reducers/ProfileReducer";
 import { compose } from 'redux';
 import {withAuthRedirectHOC} from "../../customHOKs/wihtAuthRedirectHOK";
 
@@ -12,20 +12,33 @@ import {withAuthRedirectHOC} from "../../customHOKs/wihtAuthRedirectHOK";
 
 class ProfileClass extends React.Component<PropsType, any> {
 
-
-    componentDidMount() {
+    refreshProfile = ()=> {
         let userID = Number(this.props.match.params.userID)
         if (!userID) {
             userID = this.props.myID
         }
         this.props.setUserProfileTC(userID)
         this.props.getProfileStatusTC(userID)
+    }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<any>) {
+        if(prevProps.match.params.userID !== this.props.match.params.userID) {
+            this.refreshProfile()
+        }
     }
 
     render() {
         return (
-            <ProfileInfo userData={this.props.profile} />
+            // !! приводим к булевому значению юзер id  из урла, если там пусто то на странице ее владелец
+            <ProfileInfo
+                profileData={this.props.profile}
+                isOwner={!this.props.match.params.userID}
+                uploadProfilePhotoTC={this.props.uploadProfilePhotoTC}
+            />
         )
     }
 }
@@ -42,7 +55,7 @@ const mapStateToProps = (state: RootStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfileTC,getProfileStatusTC}),
+    connect(mapStateToProps, {setUserProfileTC,getProfileStatusTC,uploadProfilePhotoTC}),
     withRouter,
     withAuthRedirectHOC,
 )(ProfileClass)
@@ -60,6 +73,7 @@ export type MapStatePropsType = ReturnType<typeof mapStateToProps>
 export type MapDispatchPropsType = {
     setUserProfileTC: (userID: number) => void,
     getProfileStatusTC:(userID:number)=> void
+    uploadProfilePhotoTC:(image:File)=>void
 }
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType

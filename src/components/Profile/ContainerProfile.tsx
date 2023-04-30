@@ -31,6 +31,8 @@ class ProfileClass extends React.Component<PropsType, any> {
         }
     }
 
+
+
     render() {
         return (
             // !! приводим к булевому значению юзер id  из урла, если там пусто то на странице ее владелец
@@ -38,6 +40,7 @@ class ProfileClass extends React.Component<PropsType, any> {
                 profileData={this.props.profile}
                 isOwner={!this.props.match.params.userID}
                 uploadProfilePhotoTC={this.props.uploadProfilePhotoTC}
+                statusMessage={this.props.statusMessage}
             />
         )
     }
@@ -50,7 +53,8 @@ class ProfileClass extends React.Component<PropsType, any> {
 const mapStateToProps = (state: RootStateType) => {
     return {
         profile: state.profile.currentUser,
-        myID: state.auth.myID
+        myID: state.auth.myID,
+        statusMessage: state.profile.statusMessage
     }
 }
 

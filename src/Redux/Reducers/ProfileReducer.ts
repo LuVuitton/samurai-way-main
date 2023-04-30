@@ -91,22 +91,22 @@ export type OnePostType = {
     text: string | undefined //пофиксить андефайнд
     time: string
 }
-
+export type ProfileContacts = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
 export type ProfileType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
+    contacts: ProfileContacts
     photos: {
         small: string
         large: string

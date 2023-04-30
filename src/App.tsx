@@ -11,6 +11,7 @@ import {initializeAppTC} from "./Redux/Reducers/appReducer";
 import {RootStateType} from "./Redux/Store";
 import {Preloader} from "./components/Other/Preloader";
 import {withSuspenseHOK} from "./customHOKs/withSuspenseHOK";
+import ErrorSnackbar from "./components/ErrorSnackBar/ErrorSnackBar";
 
 const UsersClassContainer = React.lazy(() => import ("./components/Users/UsersListClass"))
 // import UsersClassContainer from "./components/Users/UsersListClass"
@@ -51,6 +52,7 @@ class App extends React.Component<AppPropsType, any> {
                     <Route
                         render={() => <div>404 not found</div>}/>
                     </Switch>
+                    <ErrorSnackbar/>
                     </div>
             </div>
 

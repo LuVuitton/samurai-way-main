@@ -4,6 +4,7 @@ import {ActionsType} from "../ActionCreators";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 import {profileAPI} from "../../DAL/ProfileAPI";
 import {RootStateType} from "../Store";
+import {setAppStatus, setErrorMessage} from "./appReducer";
 
 
 const profileInitialState: ProfileStateType = {
@@ -28,10 +29,8 @@ export const profileReducer = (state: ProfileStateType = profileInitialState, ac
             }
         case 'profile/UPDATE-POST-INPUT-VALUE':
             return {...state, controlledInputPostValue: action.payload.currentValue}
-
         case "profile/SET-USER-PROFILE":
             return {...state, currentUser: action.payload.userProfile}
-
         case "profile/SET-STATUS_MESSAGE":
             return {...state, statusMessage: action.payload.statusMessage}
         case "profile/SET-PROFILE-PHOTO":
@@ -60,6 +59,10 @@ export const updateProfileDataTC = (formData: any) => (dispatch: AppDispatchType
                 return Promise.reject(r.data.messages[0])
             }
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
 }
 
 
@@ -68,11 +71,19 @@ export const setUserProfileTC = (userID: number) => (dispatch: AppDispatchType) 
         .then(r => {
             dispatch(setUserProfile(r.data))
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
 }
 export const getProfileStatusTC = (userID: number) => (dispatch: AppDispatchType) => {
     profileAPI.getProfileStatus(userID)
         .then(r => {
             dispatch(setStatusMessageAC(r.data))
+        })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
         })
 }
 export const updateProfileStatusTC = (statusMessage: string) => (dispatch: AppDispatchType) => {
@@ -82,11 +93,19 @@ export const updateProfileStatusTC = (statusMessage: string) => (dispatch: AppDi
                 dispatch(setStatusMessageAC(statusMessage))
             }
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
 }
 export const uploadProfilePhotoTC = (image: File) => (dispatch: AppDispatchType) => {
     profileAPI.uploadProfilePhoto(image)
         .then(r => {
             dispatch(setProfilePhotoAC(r.data.data.photos))
+        })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
         })
 }
 

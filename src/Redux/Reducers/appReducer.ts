@@ -2,19 +2,29 @@ import {ActionsType} from "../ActionCreators";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 import {checkMETC} from "./authReducer";
 
+export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed' // бездействующий|загружается|успешно|неуспешно
+export type AppErrorMessageType = string | null
 export type AppStateType = typeof initAppState
 
 const initAppState = {
-    isLoading: false,
-    isInitialized: false
+    appStatus: 'idle' as StatusType,
+    appErrorMessage: null as AppErrorMessageType,
+    isLoading: false, // везде заменить на аппСтатус
+    isInitialized: false,
+
 }
 
 export const appReducer = (state: AppStateType = initAppState, action: ActionsType): AppStateType => {
     switch (action.type) {
-        case "users/SET-IS-LOADING":
+        case "app/SET-IS-LOADING":
             return {...state, isLoading: action.payload.isLoading}
         case "app/SET-IS-INITIALIZED":
             return {...state, isInitialized: true}
+        case "app/SET-APP-STATUS":
+            return  {...state, appStatus: action.payload.appStatus}
+        case "app/SET-ERROR-MESSAGE":
+            return {...state, appErrorMessage: action.payload.errorMessage}
+
 
         default:
             return {...state}
@@ -29,14 +39,29 @@ export const initializeAppTC = () => (dispatch: AppDispatchType) => {
     const dispatchRes = dispatch(checkMETC())
 
     Promise.all([dispatchRes])
-        .then(()=> dispatch(setIsInitialized()))
+        .then(() => dispatch(setIsInitialized()))
 
 }
 
+export const setErrorMessage = (errorMessage: AppErrorMessageType)=> {
+    return {
+        type: 'app/SET-ERROR-MESSAGE',
+        payload: {
+            errorMessage
+        }
+    } as const
+}
+
+export const setAppStatus = (appStatus: StatusType) => {
+    return {
+        type: 'app/SET-APP-STATUS',
+        payload: {appStatus}
+    } as const
+}
 
 export const setIsLoadingAC = (isLoading: boolean) => {
     return {
-        type: 'users/SET-IS-LOADING',
+        type: 'app/SET-IS-LOADING',
         payload: {
             isLoading
         }

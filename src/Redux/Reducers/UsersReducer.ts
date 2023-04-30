@@ -1,6 +1,6 @@
 import {ActionsType} from "../ActionCreators";
 import {usersAPI} from "../../DAL/UsersAPI";
-import {setIsLoadingAC} from "./appReducer";
+import {setAppStatus, setErrorMessage, setIsLoadingAC} from "./appReducer";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 
 export type UserStateType = typeof usersInitialState
@@ -70,6 +70,10 @@ export const getUsersTC = (pageNumber: number) => (dispatch: AppDispatchType) =>
         .then(r => {
             dispatch(setUsersAC(r.items, r.totalCount))
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
         .finally(() => {
             dispatch(setIsLoadingAC(false))
         })
@@ -83,6 +87,10 @@ export const onFollowTC = (userID: number) => (dispatch: AppDispatchType) => {
                 dispatch(followAC(userID))
             }
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
         .finally(() => {
             dispatch(setUsersAreLoading(userID, false))
         })
@@ -95,6 +103,10 @@ export const onUnfollowTC = (userID: number) => (dispatch: AppDispatchType) => {
             if (r.resultCode === 0) {
                 dispatch(unfollowAC(userID))
             }
+        })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
         })
         .finally(() => {
             dispatch(  setUsersAreLoading(userID, false))

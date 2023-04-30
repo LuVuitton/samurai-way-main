@@ -1,5 +1,5 @@
 import React from 'react';
-import ConnProfileReForm from "./ConnProfileReForm";
+import ChatInput from "./ChatInput";
 import {ConnPostsList} from "./PostList/ConnPostsList";
 import ProfileClass from "./ContainerProfile";
 
@@ -12,7 +12,7 @@ const Profile = () => {
         <div>
             <ProfileClass/>
             <ConnPostsList/>
-            <ConnProfileReForm/>
+            <ChatInput/>
         </div>
     );
 }

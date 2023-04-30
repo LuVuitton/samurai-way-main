@@ -1,7 +1,7 @@
 import React from 'react';
 import sApp from "./App.module.css"
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
 import Profile from "./components/Profile/Profile";
@@ -35,6 +35,7 @@ class App extends React.Component<AppPropsType, any> {
                     <NavBar/>
                 </div>
                 <div className={sApp.profile}>
+                    <Switch>
                     <Route
                         path='/login'
                         render={() => <LoginContainer/>}/>
@@ -47,7 +48,10 @@ class App extends React.Component<AppPropsType, any> {
                     <Route
                         path='/Users'
                         render={withSuspenseHOK(UsersClassContainer)}/>
-                </div>
+                    <Route
+                        render={() => <div>404 not found</div>}/>
+                    </Switch>
+                    </div>
             </div>
 
 

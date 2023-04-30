@@ -3,6 +3,7 @@ import {dataTime} from "../../DataTime";
 import {ActionsType} from "../ActionCreators";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
 import {profileAPI} from "../../DAL/ProfileAPI";
+import {RootStateType} from "../Store";
 
 
 const profileInitialState: ProfileStateType = {
@@ -39,6 +40,28 @@ export const profileReducer = (state: ProfileStateType = profileInitialState, ac
     return {...state}
 }
 
+export const updateProfileDataTC = (formData: any) => (dispatch: AppDispatchType, getState: () => RootStateType) => {
+    // const {aboutMe, fullName, lookingForAJob, lookingForAJobDescription, ...restProps} = formData
+    // const profileModel = {
+    //     aboutMe,
+    //     fullName,
+    //     lookingForAJob,
+    //     lookingForAJobDescription,
+    //     contacts: {...restProps} // сними еще выясняем)
+    // }
+    const userID = getState().auth.myID
+
+    return profileAPI.updateProfileData(formData)
+        .then(r => {
+            if (r.data.resultCode === 0) {
+                dispatch(setUserProfileTC(userID))
+                return Promise.resolve()
+            } else {
+                return Promise.reject(r.data.messages[0])
+            }
+        })
+}
+
 
 export const setUserProfileTC = (userID: number) => (dispatch: AppDispatchType) => {
     profileAPI.getProfile(userID)
@@ -67,8 +90,8 @@ export const uploadProfilePhotoTC = (image: File) => (dispatch: AppDispatchType)
         })
 }
 
-export const setProfilePhotoAC = (photos:{ small: string, large: string }) =>
-    ( {type: 'profile/SET-PROFILE-PHOTO', payload: {photos}} as const)
+export const setProfilePhotoAC = (photos: { small: string, large: string }) =>
+    ({type: 'profile/SET-PROFILE-PHOTO', payload: {photos}} as const)
 export const setStatusMessageAC = (statusMessage: string) =>
     ({type: 'profile/SET-STATUS_MESSAGE', payload: {statusMessage}} as const)
 export const setUserProfile = (userProfile: any) =>

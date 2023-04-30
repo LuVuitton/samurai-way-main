@@ -2,10 +2,11 @@ import {createField, InputForm, TextAreaForm} from "../../../../formControls/for
 import {reduxForm} from "redux-form";
 import React from "react";
 
+
 const ProfileEdit = (props: any) => {
     return <>
         <form onSubmit={props.handleSubmit}>
-            <div><strong>Name:</strong> {createField('name', 'name', [], InputForm)}</div>
+            <div><strong>Full name:</strong> {createField('Full Name', 'fullName', [], InputForm)}</div>
 
             <div>
                 <img src={
@@ -15,10 +16,15 @@ const ProfileEdit = (props: any) => {
             </div>
             <input type="file" onChange={props.onUploadHandler}/>
 
-            <div><strong>lookingForAJob:</strong> {createField('', 'lookingForAJob', [], InputForm, {type: 'checkbox'})}
+            <div><strong>Looking for a
+                job:</strong> {createField('', 'lookingForAJob', [], InputForm, {type: 'checkbox'})}
             </div>
             <div>
-                <strong>lookingForAJobDescription:</strong> {createField('lookingForAJobDescription', 'lookingForAJobDescription', [], TextAreaForm)}
+                <strong>Looking for a job
+                    description:</strong> {createField('Description', 'lookingForAJobDescription', [], TextAreaForm)}
+            </div>
+            <div>
+                <strong>About Me:</strong> {createField('About Me', 'aboutMe', [], TextAreaForm)}
             </div>
 
             <div>
@@ -32,8 +38,8 @@ const ProfileEdit = (props: any) => {
 }
 
 
-export const ProfileEditForm = reduxForm<any,any>({
-    form: 'ProfileEditForm'
+export const ProfileEditor = reduxForm<any, any>({
+    form: 'ProfileEditor'
 })(ProfileEdit)
 
 

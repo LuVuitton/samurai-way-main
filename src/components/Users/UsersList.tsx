@@ -36,7 +36,7 @@ export const UsersList = (props: UsersListPropsType) => {
         <div className={sUsList.mainWrapper}>
             <div>{props.totalUsers}</div>
             {mappedUsers}
-            <div>{props.arr.length} users displayed</div>
+            <div>{props.arr.length} users have been displayed</div>
             <button disabled={props.isLoading} className={sUsList.showMoreB} onClick={props.showMore}>SHOW MORE</button>
         </div>
     )

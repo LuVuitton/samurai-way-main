@@ -1,9 +1,14 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
-import {ProfileInfo} from "./ProfilleInfo/ProfileInfo";
+import {ProfilePage} from "./ProfillePage/ProfilePage";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {getProfileStatusTC, setUserProfileTC, uploadProfilePhotoTC} from "../../Redux/Reducers/ProfileReducer";
+import {
+    getProfileStatusTC,
+    setUserProfileTC,
+    updateProfileDataTC,
+    uploadProfilePhotoTC
+} from "../../Redux/Reducers/ProfileReducer";
 import { compose } from 'redux';
 import {withAuthRedirectHOC} from "../../customHOKs/wihtAuthRedirectHOK";
 
@@ -36,11 +41,12 @@ class ProfileClass extends React.Component<PropsType, any> {
     render() {
         return (
             // !! приводим к булевому значению юзер id  из урла, если там пусто то на странице ее владелец
-            <ProfileInfo
+            <ProfilePage
                 profileData={this.props.profile}
                 isOwner={!this.props.match.params.userID}
                 uploadProfilePhotoTC={this.props.uploadProfilePhotoTC}
                 statusMessage={this.props.statusMessage}
+                updateProfileDataTC={this.props.updateProfileDataTC}
             />
         )
     }
@@ -59,7 +65,7 @@ const mapStateToProps = (state: RootStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfileTC,getProfileStatusTC,uploadProfilePhotoTC}),
+    connect(mapStateToProps, {setUserProfileTC,getProfileStatusTC,uploadProfilePhotoTC,updateProfileDataTC}),
     withRouter,
     withAuthRedirectHOC,
 )(ProfileClass)
@@ -78,6 +84,7 @@ export type MapDispatchPropsType = {
     setUserProfileTC: (userID: number) => void,
     getProfileStatusTC:(userID:number)=> void
     uploadProfilePhotoTC:(image:File)=>void
+    updateProfileDataTC:(formData:any)=> Promise<any>
 }
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType

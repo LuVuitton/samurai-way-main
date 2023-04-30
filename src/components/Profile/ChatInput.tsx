@@ -5,7 +5,7 @@ import {RootStateType} from "../../Redux/Store";
 import sReForm from '../ReusInputButton/ReForm.module.css'
 import {addPostAC, updatePostInputValueAC} from "../../Redux/Reducers/ProfileReducer";
 
-const ReForm = (props: ReFormPropsType) => {
+const ChatInput = (props: ReFormPropsType) => {
     return <>
         <input type={'text'} onChange={props.onChangeHandler}
                value={props.inputValue}
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInput)
 
 
 export type ReFormPropsType = {

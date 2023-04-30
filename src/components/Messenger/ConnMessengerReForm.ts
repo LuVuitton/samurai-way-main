@@ -2,7 +2,7 @@ import  {ChangeEvent, KeyboardEvent} from "react";
 import {ActionsType} from "../../Redux/ActionCreators";
 import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
-import ReForm from "../Profile/ConnProfileReForm";
+import ReForm from "../Profile/ChatInput";
 import {addMessageAC, updateMessengerInputValueAC} from "../../Redux/Reducers/MessengerReducer";
 
 

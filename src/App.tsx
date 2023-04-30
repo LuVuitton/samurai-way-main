@@ -1,7 +1,7 @@
 import React from 'react';
 import sApp from "./App.module.css"
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
 import Profile from "./components/Profile/Profile";
@@ -36,8 +36,12 @@ class App extends React.Component<AppPropsType, any> {
                     <NavBar/>
                 </div>
                 <div className={sApp.profile}>
+
                     <Switch>
                     <Route
+                        path='/samurai-way-main'
+                        render={() => <Redirect to={'/Profile'}/>}/>
+                        <Route
                         path='/login'
                         render={() => <LoginContainer/>}/>
                     <Route

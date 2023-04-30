@@ -12,7 +12,6 @@ class PostsList extends React.PureComponent<PostsListPropsType> {
 
 
     render() {
-        console.log('rerender')
         const mappedPosts = this.props.arr.map(e => <div key={e.id}>  {e.text} {e.time}</div>)
 
 

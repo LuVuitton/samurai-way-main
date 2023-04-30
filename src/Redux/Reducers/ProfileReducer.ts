@@ -12,7 +12,7 @@ const profileInitialState: ProfileStateType = {
         // {id: v1(), text: 'second post for feed', time: '00:03'},
     ],
     controlledInputPostValue: '',
-    currentUser: null,
+    currentUser: {} as ProfileType,
     statusMessage: '',
 }
 
@@ -25,7 +25,6 @@ export const profileReducer = (state: ProfileStateType = profileInitialState, ac
                 ...state, postsArr: [...state.postsArr, newPost],
                 controlledInputPostValue: ''
             }
-
         case 'profile/UPDATE-POST-INPUT-VALUE':
             return {...state, controlledInputPostValue: action.payload.currentValue}
 
@@ -34,7 +33,8 @@ export const profileReducer = (state: ProfileStateType = profileInitialState, ac
 
         case "profile/SET-STATUS_MESSAGE":
             return {...state, statusMessage: action.payload.statusMessage}
-
+        case "profile/SET-PROFILE-PHOTO":
+            return {...state, currentUser: {...state.currentUser, photos: action.payload.photos}}
     }
     return {...state}
 }
@@ -46,15 +46,12 @@ export const setUserProfileTC = (userID: number) => (dispatch: AppDispatchType) 
             dispatch(setUserProfile(r.data))
         })
 }
-
 export const getProfileStatusTC = (userID: number) => (dispatch: AppDispatchType) => {
     profileAPI.getProfileStatus(userID)
         .then(r => {
             dispatch(setStatusMessageAC(r.data))
         })
 }
-
-
 export const updateProfileStatusTC = (statusMessage: string) => (dispatch: AppDispatchType) => {
     profileAPI.updateProfileStatus(statusMessage)
         .then((r) => {
@@ -63,8 +60,15 @@ export const updateProfileStatusTC = (statusMessage: string) => (dispatch: AppDi
             }
         })
 }
+export const uploadProfilePhotoTC = (image: File) => (dispatch: AppDispatchType) => {
+    profileAPI.uploadProfilePhoto(image)
+        .then(r => {
+            dispatch(setProfilePhotoAC(r.data.data.photos))
+        })
+}
 
-
+export const setProfilePhotoAC = (photos:{ small: string, large: string }) =>
+    ( {type: 'profile/SET-PROFILE-PHOTO', payload: {photos}} as const)
 export const setStatusMessageAC = (statusMessage: string) =>
     ({type: 'profile/SET-STATUS_MESSAGE', payload: {statusMessage}} as const)
 export const setUserProfile = (userProfile: any) =>
@@ -78,7 +82,7 @@ export const updatePostInputValueAC = (currentValue: string) =>
 export type ProfileStateType = {
     postsArr: Array<OnePostType>
     controlledInputPostValue: string
-    currentUser: null | ProfileType
+    currentUser: ProfileType
     statusMessage: string
 }
 
@@ -87,22 +91,22 @@ export type OnePostType = {
     text: string | undefined //пофиксить андефайнд
     time: string
 }
-
+export type ProfileContacts = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
 export type ProfileType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
+    contacts: ProfileContacts
     photos: {
         small: string
         large: string

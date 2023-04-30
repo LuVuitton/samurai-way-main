@@ -21,7 +21,7 @@ export const Login = (props:any) => {
     )
 }
 
-
+//пропсы для Login в типизацию функции вторм параетром
 export const LoginReduxForm = reduxForm({
     form: 'login'
 })(Login)

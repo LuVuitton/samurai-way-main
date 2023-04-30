@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from "react";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {RootStateType} from "../../Redux/Store";
 import {setStatusMessageAC, updateProfileStatusTC} from "../../Redux/Reducers/ProfileReducer";
+import s from './EditableText.module.css'
 
 //костыль с забайдненым this нужен что бы в методе this был, до этого он почему то его не находит// уже работает
-class EditableTextClass extends React.Component<EditableTextPropsType, EditableTextLocalStateType> {
+class EditableText extends React.Component<EditableTextPropsType, EditableTextLocalStateType> {
 
     state = {
         editMode: false,
@@ -13,24 +13,24 @@ class EditableTextClass extends React.Component<EditableTextPropsType, EditableT
     }
 
 
-    componentDidUpdate(prevProps: Readonly<EditableTextPropsType>, prevState: Readonly<EditableTextLocalStateType>, snapshot?: any) {
-        if (prevProps.statusMessage !== this.props.statusMessage){
+    componentDidUpdate(prevProps: Readonly<EditableTextPropsType>, prevState: Readonly<EditableTextLocalStateType>) {
+        if (prevProps.statusMessage !== this.props.statusMessage) {
             this.setState({
-                inputCurrenValue:this.props.statusMessage
+                inputCurrenValue: this.props.statusMessage
             })
         }
     }
 
-    onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
+    onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             inputCurrenValue: e.currentTarget.value
         })
     }
 
-    onBlurHandler=()=> {
+    onBlurHandler = () => {
         this.props.updateProfileStatusTC(this.state.inputCurrenValue)
         this.setState({
-            editMode:false,
+            editMode: false,
         })
     }
     turnOnEditModeHandler = () => {
@@ -41,53 +41,44 @@ class EditableTextClass extends React.Component<EditableTextPropsType, EditableT
     }
 
 
-
     render() {
         return (
-            <div>
+            <>
                 {!this.state.editMode &&
-                    <span onDoubleClick={this.turnOnEditModeHandler}>{this.props.statusMessage || 'status is empty...'}</span>}
+                    <div className={s.normalText}>
+                        <span
+                            onClick={this.turnOnEditModeHandler}>{this.props.statusMessage || 'status is empty...'}
+                        </span>
+                    </div>
+                }
                 {this.state.editMode &&
                     <input
-                    value={this.state.inputCurrenValue}
-                    onChange={this.onChangeHandler}
-                    autoFocus
-                    onBlur={this.onBlurHandler}
-                />}
-            </div>
+                        value={this.state.inputCurrenValue}
+                        onChange={this.onChangeHandler}
+                        autoFocus
+                        onBlur={this.onBlurHandler}
+                    />}
+            </>
         )
     }
 }
 
-const mapStateToProps = (state: RootStateType) => {
-    return {
-        statusMessage: state.profile.statusMessage
-    }
-}
+
+export default compose<React.ComponentType<EditableTextParentPropsType>>(
+    connect(null, {updateProfileStatusTC, setStatusMessageAC})
+)(EditableText)
 
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {updateProfileStatusTC, setStatusMessageAC})
-)(EditableTextClass)
+type EditableTextPropsType = MapDispatchType & EditableTextParentPropsType
 
-
-
-
-
-
-
-
-
-
-type EditableTextPropsType = MapStateType & MapDispatchType & EditableTextParentPropsType
-type MapStateType = ReturnType<typeof mapStateToProps>
-type MapDispatchType ={
-    updateProfileStatusTC: (statusMessage:string)=>void
-    setStatusMessageAC: (statusMessage: string)=>ReturnType<typeof setStatusMessageAC>
+type MapDispatchType = {
+    updateProfileStatusTC: (statusMessage: string) => void
+    setStatusMessageAC: (statusMessage: string) => ReturnType<typeof setStatusMessageAC>
 }
 
 type EditableTextParentPropsType = {
-    userID: number
+    // userID: number
+    statusMessage: string
 }
 type EditableTextLocalStateType = {
     editMode: boolean

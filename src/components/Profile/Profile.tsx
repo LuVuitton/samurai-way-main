@@ -10,9 +10,9 @@ import ProfileClass from "./ContainerProfile";
 const Profile = () => {
     return (
         <div>
-            <ConnProfileReForm/>
-            <ConnPostsList/>
             <ProfileClass/>
+            <ConnPostsList/>
+            <ConnProfileReForm/>
         </div>
     );
 }

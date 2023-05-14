@@ -11,3 +11,17 @@
     font-weight: bold;
     padding: 5px;
 }
+
+
+.formControl {
+    width: 400px;
+    /*padding: 10px;*/
+}
+
+.mainWrapper {
+ padding: 20px;
+}
+
+.btn{
+    padding:10px 0;
+}

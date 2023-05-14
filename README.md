@@ -1,1 +1,1 @@
-hello my friend
+gh-page, try: https://luvuitton.github.io/samurai-way-main/

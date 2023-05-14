@@ -1,23 +1,33 @@
 import {Field, reduxForm} from "redux-form";
-import {InputForm} from "../../formControls/formControls";
+import {CheckForm, InputForm, PasswordForm} from "../../formControls/formControls";
 import {maxLengthCreator, required} from "../../formControls/validators";
 import s from '../../formControls/formControls.module.css'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
+
 
 const maxLength50 = maxLengthCreator(50)
 
-export const Login = (props:any) => {
+export const Login = (props: any) => {
     return (
-        <>
-            <h1>Login</h1>
-            <form onSubmit={props.handleSubmit}>
-                <div><Field placeholder={'name'} type="text" component={InputForm} name={'email'} validate={[required,
+        <div className={s.mainWrapper}>
+
+            <Form onSubmit={props.handleSubmit}>
+                <h3>Login</h3>
+                <div><Field type="text" component={InputForm} name={'email'} validate={[required,
                     maxLength50]}/></div>
-                <div><Field placeholder={'password'} type="password" component={InputForm} name={'password'} validate={[required]}/></div>
-                <div><Field type="checkbox" component={'input'} name={'rememberMe'}/>  remember me</div>
-                <div><button>LOGIN</button></div>
+                <div><Field type="password" component={PasswordForm} name={'password'}
+                            validate={[required]}/></div>
+                <div><Field type="checkbox" component={CheckForm} name={'rememberMe'}/></div>
+                <div className={s.btn}>
+                    <Button variant="light" type="submit">
+                        LOGIN
+                    </Button>
+                </div>
                 {props.error && <div className={s.commonError}>{props.error}</div>}
-            </form>
-        </>
+            </Form>
+        </div>
     )
 }
 
@@ -25,3 +35,7 @@ export const Login = (props:any) => {
 export const LoginReduxForm = reduxForm({
     form: 'login'
 })(Login)
+
+
+
+

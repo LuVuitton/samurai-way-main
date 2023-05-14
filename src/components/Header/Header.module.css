@@ -1,5 +1,16 @@
 .mainWrapper {
+    height: 100%;
+    width: 100% ;
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    align-items: center;
+    /*margin: 0 10px;*/
+    /*margin-top: 5px;*/
+    padding: 0 20px
+}
+
+
+.singedText {
+    color: rgba(0, 0, 0, 0.21);
+
 }

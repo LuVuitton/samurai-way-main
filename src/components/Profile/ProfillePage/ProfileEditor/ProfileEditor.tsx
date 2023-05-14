@@ -1,13 +1,12 @@
-import {createField, InputForm, TextAreaForm} from "../../../../formControls/formControls";
+import {CheckForm, createField, InputForm, TextAreaForm} from "../../../../formControls/formControls";
 import {reduxForm} from "redux-form";
 import React from "react";
+import Button from 'react-bootstrap/Button';
 
 
 const ProfileEdit = (props: any) => {
     return <>
         <form onSubmit={props.handleSubmit}>
-            <div><strong>Full name:</strong> {createField('Full Name', 'fullName', [], InputForm)}</div>
-
             <div>
                 <img src={
                     props.profileData.photos.small
@@ -15,16 +14,16 @@ const ProfileEdit = (props: any) => {
                 } alt="photo"/>
             </div>
             <input type="file" onChange={props.onUploadHandler}/>
+            <div>{createField('Full Name', 'fullName', [], InputForm)}</div>
 
-            <div><strong>Looking for a
-                job:</strong> {createField('', 'lookingForAJob', [], InputForm, {type: 'checkbox'})}
+
+            <div>{createField('', 'lookingForAJob', [], CheckForm, {label: 'Looking for a job'})}
             </div>
             <div>
-                <strong>Looking for a job
-                    description:</strong> {createField('Description', 'lookingForAJobDescription', [], TextAreaForm)}
+                {createField('Description', 'lookingForAJobDescription', [], TextAreaForm, {label: 'Looking for a job description'})}
             </div>
             <div>
-                <strong>About Me:</strong> {createField('About Me', 'aboutMe', [], TextAreaForm)}
+                {createField('About Me', 'aboutMe', [], TextAreaForm, {label: 'About ME'})}
             </div>
 
             <div>
@@ -32,7 +31,9 @@ const ProfileEdit = (props: any) => {
                 <ul> {props.mappedContacts}</ul>
             </div>
 
-            <button>SAVE</button>
+            <Button variant="light" type="submit">
+                save
+            </Button>
         </form>
     </>
 }

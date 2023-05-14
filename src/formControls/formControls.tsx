@@ -2,17 +2,19 @@ import s from './formControls.module.css'
 import {Field} from "redux-form";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
 
 export const InputForm = ({input, meta, size, ...props}: any) => {
     const hasError = meta.touched && meta.error;
-
+// debugger
     return (
         <div className={s.formControl + ' ' + (hasError? s.error: '')}>
             <div>
             {/*{hasError && <span>{hasError}</span>}*/}
                 {/*<input    {...input} {...props} />*/}
                 <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">email</InputGroup.Text>
+                    <InputGroup.Text id="basic-addon1">{props.placeholder}</InputGroup.Text>
                     <Form.Control
                         placeholder={hasError? hasError: 'email'}
                         aria-label="Username"
@@ -52,7 +54,7 @@ export const PasswordForm = ({input, meta, ...props}: any) => {
     )
 }
 
-export const CheckForm = ({input, meta, ...props}: any) => {
+export const CheckForm = ({input, meta, label,...props}: any) => {
     // const hasError = meta.touched && meta.error;
 
     return (
@@ -60,23 +62,38 @@ export const CheckForm = ({input, meta, ...props}: any) => {
             <Form.Check
                 type="switch"
                 id="custom-switch"
-                label="Remember ME"
+                label={label}
                 {...input} {...props}
             />
 
     )
 }
 
-export const TextAreaForm = ({input, meta, ...props}: any) => {
-    const hasError = meta.touched && meta.error;
+export const TextAreaForm = ({input, meta, label, ...props}: any) => {
+    // const hasError = meta.touched && meta.error;
+
     return (
-        <div className={s.formControl + ' ' + (hasError? s.error: '')}>
-            <div>
-                <textarea {...input} {...props} />
-            </div>
-            {hasError && <span>{hasError}</span>}
-        </div>
-    )
+        <>
+            <FloatingLabel controlId="floatingTextarea2" label={label}>
+                <Form.Control
+                    as="textarea"
+                    placeholder="Leave a comment here"
+                    style={{ height: '100px', width:'400px' }}
+                    {...input} {...props}
+                />
+            </FloatingLabel>
+        </>
+    );
+
+
+    // return (
+    //     <div className={s.formControl + ' ' + (hasError? s.error: '')}>
+    //         <div>
+    //             <textarea {...input} {...props} />
+    //         </div>
+    //         {hasError && <span>{hasError}</span>}
+    //     </div>
+    // )
 }
 
 export const createField = (placeholder:string, name:string, validators: Function[], component:any, props:any ={}, text='') => (

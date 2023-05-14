@@ -15,11 +15,11 @@ export const Login = (props: any) => {
 
             <Form onSubmit={props.handleSubmit}>
                 <h3>Login</h3>
-                <div><Field type="text" component={InputForm} name={'email'} validate={[required,
+                <div><Field type="text" placeholder={'email'} component={InputForm} name={'email'} validate={[required,
                     maxLength50]}/></div>
                 <div><Field type="password" component={PasswordForm} name={'password'}
                             validate={[required]}/></div>
-                <div><Field type="checkbox" component={CheckForm} name={'rememberMe'}/></div>
+                <div><Field component={CheckForm} name={'rememberMe'} label={'Remember me'}/></div>
                 <div className={s.btn}>
                     <Button variant="light" type="submit">
                         LOGIN

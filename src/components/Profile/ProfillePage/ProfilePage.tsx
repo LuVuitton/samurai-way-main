@@ -1,4 +1,3 @@
-import EditableText from '../../EditableText/EditableText'
 import {ProfileContacts, ProfileType} from "../../../Redux/Reducers/ProfileReducer";
 import React, {ChangeEvent} from "react";
 import {ProfileEditor} from "./ProfileEditor/ProfileEditor";
@@ -7,6 +6,7 @@ import {createField, InputForm} from "../../../formControls/formControls";
 
 
 export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePageStateType> {
+
     constructor(props: ProfilePagePropsType) {
         super(props);
 
@@ -23,14 +23,13 @@ export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePa
 
     formSubmitHandler = (formData: any) => {
         this.props.updateProfileDataTC(formData)
-            .then(()=>{
-            this.setState({
-                editMode:false
+            .then(() => {
+                this.setState({
+                    editMode: false
+                })
             })
-        })
 
     }
-
 
     toEditModeHandler = () => {
         this.setState({
@@ -55,29 +54,26 @@ export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePa
                     key={e}
                     contactTitle={e}
                     contactValue={profileData.contacts[e as keyof ProfileContacts]}
+                    editMode={false}
                 />
             );
         });
+
         const mappedContactsForEditor = Object.keys(profileData.contacts).map((e) => {
             return (
                 <ProfileContact
                     key={e}
                     contactTitle={e}
                     contactValue={createField(e, `contacts.${e}`, [], InputForm)}
+                    editMode={true}
                 />
             );
         });
 
         return (
             <>
-                {isOwner && <button onClick={this.toEditModeHandler}>edit</button>}
-                <div>
-                    <strong>Status:</strong>
-                    {isOwner
-                        ? <EditableText statusMessage={statusMessage}/>
-                        : (statusMessage || 'status is empty')}
 
-                </div>
+
 
                 {editMode
                     ? <ProfileEditor
@@ -90,6 +86,9 @@ export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePa
                     : <ProfileDisplay
                         profileData={profileData}
                         mappedContacts={mappedContactsForDisplay}
+                        isOwner={isOwner}
+                        statusMessage={statusMessage}
+                        toEditModeHandler={this.toEditModeHandler}
                     />
                 }
             </>
@@ -98,14 +97,26 @@ export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePa
 }
 
 
-export const ProfileContact = ({contactTitle, contactValue}: ProfileContactPropsType) => {
-    return <li><strong>{contactTitle}: </strong> {contactValue}</li>
+export const ProfileContact = ({contactTitle, contactValue, editMode}: ProfileContactPropsType) => {
+
+
+    return (
+        <li>
+            {editMode
+
+                ? <span>{contactValue}</span>
+                : <a href={contactValue} target={'_blank'}>{contactTitle}</a>
+            }
+        </li>
+    )
+
 }
 
 
 type ProfileContactPropsType = {
     contactTitle: string,
-    contactValue: any
+    contactValue: any,
+    editMode: boolean
 }
 
 type ProfilePageStateType = {

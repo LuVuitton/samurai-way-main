@@ -7,19 +7,52 @@
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
+    padding: 20px;
+    background-color: rgba(215, 215, 215, 0.11);
+    height: 100vh;
 }
 
 .header {
-    border: 2px solid green;
     grid-area: h;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    background-color: white;
+
 }
 
 .navBar {
-    border: 2px solid darkblue;
-    grid-area: n
+    /*border: 2px solid darkblue;*/
+    grid-area: n;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    background-color: white;
 }
 
 .profile {
-    border: 2px solid red;
-    grid-area: c
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    grid-area: c;
+    background-color: white;
+    padding: 20px;
+
 }
+
+@media (max-width: 1024px) {
+    .mainWrapper {
+        grid-template-areas:
+      "h h h"
+      "c c c"; /* изменяем шаблон сетки для скрытия navBar */
+    }
+
+    .navBar {
+        display: none; /* скрываем элемент navBar */
+    }
+
+
+    .profile {
+
+        padding: 10px 5px;
+
+    }
+}
+

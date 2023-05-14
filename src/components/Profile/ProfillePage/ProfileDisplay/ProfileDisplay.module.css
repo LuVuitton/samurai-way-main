@@ -1,0 +1,34 @@
+.mainWrapper {
+
+
+}
+
+.imgWrapper {
+    width: 150px;
+    height: 150px;
+    border: 1px solid blue;
+    position: relative;
+    overflow: hidden; /* скрываем части изображения, которые не помещаются в блок */
+}
+
+.imgWrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.textWrapper {
+    border: 1px solid red;
+    min-width: 300px;
+    /*padding-right: 50px;*/
+}
+
+.contactWrapper{
+    max-width: 250px;
+    /*border: 1px solid ;*/
+
+}

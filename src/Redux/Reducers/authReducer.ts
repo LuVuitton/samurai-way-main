@@ -1,7 +1,7 @@
 import {ActionsType} from "../ActionCreators";
 import {authAPI} from "../../DAL/AuthAPI";
 import {AppDispatchType} from "../../customHooks/useCustomDispatch";
-import {setIsLoadingAC} from "./appReducer";
+import {setAppStatus, setErrorMessage, setIsLoadingAC} from "./appReducer";
 import {stopSubmit} from "redux-form";
 
 
@@ -31,6 +31,10 @@ export const checkMETC = () => (dispatch: AppDispatchType) => {
                 dispatch(authMeAC(r.data))
             }
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
         .finally(() => {
             dispatch(setIsLoadingAC(false))
         })
@@ -47,6 +51,10 @@ export const loginTC = (loginData: LoginDataType) => (dispatch: AppDispatchType)
                 dispatch(stopSubmit('login', {_error: message}))
             }
         })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
+        })
         .finally(() => {
             dispatch(setIsLoadingAC(false))
         })
@@ -59,6 +67,10 @@ export const logoutTC = () => (dispatch: AppDispatchType) => {
             if (r.data.resultCode === 0) {
                 dispatch(logoutAC())
             }
+        })
+        .catch(err=>{
+            dispatch(setErrorMessage(err))
+            dispatch(setAppStatus("failed"))
         })
 }
 

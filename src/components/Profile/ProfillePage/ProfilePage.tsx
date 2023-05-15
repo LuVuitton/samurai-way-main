@@ -1,20 +1,14 @@
-import EditableText from '../../EditableText/EditableText'
 import {ProfileContacts, ProfileType} from "../../../Redux/Reducers/ProfileReducer";
-import React, {ChangeEvent, ReactComponentElement} from "react";
-import {ProfileEditForm} from "./ProfileEditForm/ProfileEditForm";
-
-export type ProfileInfoPropsType = {
-    profileData: ProfileType
-    isOwner: boolean
-    uploadProfilePhotoTC: (image: File) => void
-    statusMessage: string
+import React, {ChangeEvent} from "react";
+import {ProfileEditor} from "./ProfileEditor/ProfileEditor";
+import {ProfileDisplay} from "./ProfileDisplay/ProfileDisplay";
+import {createField, InputForm} from "../../../formControls/formControls";
+import {Preloader} from "../../Other/Preloader";
 
 
-}
+export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePageStateType> {
 
-
-export class ProfileInfo extends React.Component<ProfileInfoPropsType, ProfileInfoStateType> {
-    constructor(props: ProfileInfoPropsType) {
+    constructor(props: ProfilePagePropsType) {
         super(props);
 
         this.state = {
@@ -28,14 +22,19 @@ export class ProfileInfo extends React.Component<ProfileInfoPropsType, ProfileIn
         }
     };
 
-    formSubmitHandler = (formData:any)=> {
-        console.log(formData)
+    formSubmitHandler = (formData: any) => {
+        this.props.updateProfileDataTC(formData)
+            .then(() => {
+                this.setState({
+                    editMode: false
+                })
+            })
+
     }
 
-
-    toEditModeHandler = ()=> {
+    toEditModeHandler = () => {
         this.setState({
-            editMode:true
+            editMode: true
         })
     }
 
@@ -46,95 +45,91 @@ export class ProfileInfo extends React.Component<ProfileInfoPropsType, ProfileIn
 
         // проверяем что профайл дата не путой обьект
         if (!profileData.userId) {
-            return <>Loading...</>;
+            return <Preloader/>;
         }
 
         // собираем все ключи с обьекта контактс в массив и на основе этого мапим компонент
-        const mappedContacts = Object.keys(profileData.contacts).map((e) => {
+        const mappedContactsForDisplay = Object.keys(profileData.contacts).map((e) => {
             return (
                 <ProfileContact
                     key={e}
                     contactTitle={e}
                     contactValue={profileData.contacts[e as keyof ProfileContacts]}
+                    editMode={false}
+                />
+            );
+        });
+
+        const mappedContactsForEditor = Object.keys(profileData.contacts).map((e) => {
+            return (
+                <ProfileContact
+                    key={e}
+                    contactTitle={e}
+                    contactValue={createField(e, `contacts.${e}`, [], InputForm)}
+                    editMode={true}
                 />
             );
         });
 
         return (
             <>
-                <div>
-                    <strong>Status:</strong>
-                    {isOwner
-                        ? <EditableText statusMessage={statusMessage}/>
-                        : (statusMessage || 'status is empty')}
-                    {isOwner && <button onClick={this.toEditModeHandler}>edit</button>}
-                </div>
-
                 {editMode
-                    ? <ProfileEditForm onSubmit={this.formSubmitHandler} profileData={profileData} mappedContacts={mappedContacts} onUploadHandler={this.onUploadHandler}/>
-                    : <ProfileData profileData={profileData} mappedContacts={mappedContacts}/>
+                    ? <ProfileEditor
+                        onSubmit={this.formSubmitHandler}
+                        profileData={profileData}
+                        mappedContacts={mappedContactsForEditor}
+                        onUploadHandler={this.onUploadHandler}
+                        initialValues={profileData}
+                    />
+                    : <ProfileDisplay
+                        profileData={profileData}
+                        mappedContacts={mappedContactsForDisplay}
+                        isOwner={isOwner}
+                        statusMessage={statusMessage}
+                        toEditModeHandler={this.toEditModeHandler}
+                    />
                 }
             </>
         );
     }
 }
 
-export const ProfileData = (props: ProfileDataPropsType) => {
-    return <>
-        <p><strong>Name:</strong> {props.profileData.fullName}</p>
-        <div>
-            <img src={
-                props.profileData.photos.small
-                || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJbd87QavjazVx5tJ9sLdp_p2oqfGoN1KUjw&usqp=CAU'
-            } alt="photo"/></div>
-        {/*{props.isOwner && <input type="file" onChange={onUploadHandler}/>}*/}
-        <p><strong>lookingForAJob:</strong> {props.profileData.lookingForAJob ? 'yes' : 'no'}</p>
-        {props.profileData.lookingForAJob && (
-            <p><strong>lookingForAJobDescription:</strong> {props.profileData.lookingForAJobDescription}</p>
-        )}
-        <div>
-            <p><strong>Contact:</strong></p>
-            <ul> {props.mappedContacts}</ul>
-        </div>
-    </>
-}
+
+export const ProfileContact = ({contactTitle, contactValue, editMode}: ProfileContactPropsType) => {
 
 
-
-
-
-
-
-
-
-
-
-
-
-export const ProfileContact = ({contactTitle, contactValue}: ProfileContactPropsType) => {
     return (
-        <>
-            <li><strong>{contactTitle}: </strong> {contactValue}</li>
-        </>
+        <li>
+            {editMode
+
+                ? <span>{contactValue}</span>
+                : <a href={contactValue} target={'_blank'}>{contactTitle}</a>
+            }
+        </li>
     )
-}
 
-
-type ProfileDataPropsType = {
-    profileData: ProfileType
-    mappedContacts: ReactComponentElement<any>[]
 }
 
 
 type ProfileContactPropsType = {
     contactTitle: string,
-    contactValue: string
+    contactValue: any,
+    editMode: boolean
 }
 
-type ProfileInfoStateType = {
+type ProfilePageStateType = {
     editMode: boolean;
-};
+}
 
+export type ProfilePagePropsType = {
+    profileData: ProfileType
+    isOwner: boolean
+    uploadProfilePhotoTC: (image: File) => void
+    statusMessage: string
+    updateProfileDataTC: (formData: any) => Promise<any>
+
+
+}
 
 
 //функциональный компонент

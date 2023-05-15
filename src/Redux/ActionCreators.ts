@@ -1,7 +1,7 @@
 import {authMeAC, logoutAC} from "./Reducers/authReducer";
-import {setIsInitialized, setIsLoadingAC} from "./Reducers/appReducer";
+import {setAppStatus, setErrorMessage, setIsInitialized, setIsLoadingAC} from "./Reducers/appReducer";
 import {
-    addPostAC, setProfilePhotoAC,
+    addPostAC, deletePostAC, setProfilePhotoAC,
     setStatusMessageAC,
     setUserProfile,
     updatePostInputValueAC
@@ -35,3 +35,6 @@ export type ActionsType =
     | ReturnType<typeof logoutAC>
     | ReturnType<typeof setIsInitialized>
     | ReturnType<typeof setProfilePhotoAC>
+    | ReturnType<typeof setAppStatus>
+    | ReturnType<typeof setErrorMessage>
+    | ReturnType<typeof deletePostAC>

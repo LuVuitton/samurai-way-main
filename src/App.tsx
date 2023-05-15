@@ -1,7 +1,7 @@
 import React from 'react';
 import sApp from "./App.module.css"
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Messenger from "./components/Messenger/Messenger";
 import Profile from "./components/Profile/Profile";
@@ -11,6 +11,7 @@ import {initializeAppTC} from "./Redux/Reducers/appReducer";
 import {RootStateType} from "./Redux/Store";
 import {Preloader} from "./components/Other/Preloader";
 import {withSuspenseHOK} from "./customHOKs/withSuspenseHOK";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UsersClassContainer = React.lazy(() => import ("./components/Users/UsersListClass"))
 // import UsersClassContainer from "./components/Users/UsersListClass"
@@ -25,7 +26,7 @@ class App extends React.Component<AppPropsType, any> {
     }
 
     render() {
-        if (!this.props.isInitialized) return <Preloader/>
+        if (!this.props.isInitialized) return <div className={sApp.preloaderWrapper}> <Preloader/></div>
         return (
             <div className={sApp.mainWrapper}>
                 <div className={sApp.header}>
@@ -35,7 +36,12 @@ class App extends React.Component<AppPropsType, any> {
                     <NavBar/>
                 </div>
                 <div className={sApp.profile}>
+
+                    <Switch>
                     <Route
+                        path='/samurai-way-main'
+                        render={() => <Redirect to={'/Profile'}/>}/>
+                        <Route
                         path='/login'
                         render={() => <LoginContainer/>}/>
                     <Route
@@ -47,7 +53,12 @@ class App extends React.Component<AppPropsType, any> {
                     <Route
                         path='/Users'
                         render={withSuspenseHOK(UsersClassContainer)}/>
-                </div>
+                    <Route
+                        render={() => <div>404 not found</div>}/>
+                    </Switch>
+                    {/*<ErrorSnackbar/>*/}
+                    </div>
+
             </div>
 
 

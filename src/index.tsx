@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import store from "./Redux/Store";
 import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 
 
 // export const rerenderAllTree = () => {
@@ -13,7 +13,9 @@ ReactDOM.render(
     <Provider store={store}>
         {/*<BrowserRouter basename={process.env.PUBLIC_URL}>  ПЛюс хэш роутер */  }
         <BrowserRouter>
+        {/*<HashRouter >*/}
             <App/>
+        {/*</HashRouter>*/}
         </BrowserRouter>
     </Provider>, document.getElementById('root'));
 

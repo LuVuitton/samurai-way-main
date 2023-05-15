@@ -2,6 +2,7 @@
 .formControl.error textarea {
     border: 1px solid red;
 }
+
 .formControl.error span {
     color: red;
 }
@@ -10,4 +11,21 @@
     color: red;
     font-weight: bold;
     padding: 5px;
+}
+
+
+.mainWrapper {
+    padding: 20px;
+}
+
+.formControl {
+    max-width: 400px;
+}
+
+.btn {
+    padding: 10px 0;
+}
+
+.formControlInput {
+    /*width: 100%;*/
 }

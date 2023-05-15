@@ -19,6 +19,9 @@ export const profileAPI = {
         formData.append('image', image)
 
         return instance.put<GeneralResponseType<{ photos: { small: string, large: string } }>>('/profile/photo', formData, {headers: {'Content-Type':'multipart/form-data'}})
+    },
+    updateProfileData(formData: any){
+        return instance.put<GeneralResponseType>('/profile', formData)
     }
 }
 

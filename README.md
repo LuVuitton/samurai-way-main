@@ -1,1 +1,1 @@
-hello my friend
+try https://luvuitton.github.io/samurai-way-main/

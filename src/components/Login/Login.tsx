@@ -4,6 +4,8 @@ import {maxLengthCreator, required} from "../../formControls/validators";
 import s from '../../formControls/formControls.module.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+
 
 
 
@@ -26,6 +28,13 @@ export const Login = (props: any) => {
                     </Button>
                 </div>
                 {props.error && <div className={s.commonError}>{props.error}</div>}
+
+                <Alert variant={'success'} style={{maxWidth:'400px'}}>
+                    <><p>get registered or use common <b>test</b> account credentials:</p>
+                        <br/>
+                        <p><b>Email:</b> free@samuraijs.com</p>
+                        <p><b>Password:</b> free</p></>
+                </Alert>
             </Form>
         </div>
     )

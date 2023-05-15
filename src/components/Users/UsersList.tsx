@@ -3,16 +3,6 @@ import React from "react";
 import {User} from "./User";
 import {OneUserType} from "../../Redux/Reducers/UsersReducer";
 
-export type UsersListPropsType = {
-    arr: OneUserType[]
-    totalUsers: number
-    showMore: () => void
-    isLoading: boolean
-    setIsLoadingAC: (isLoading: boolean) => void
-    usersAreLoading: number[]
-    onFollowTC:(userID:number)=>void
-    onUnfollowTC:(userID:number)=>void
-}
 
 
 export const UsersList = (props: UsersListPropsType) => {
@@ -34,7 +24,7 @@ export const UsersList = (props: UsersListPropsType) => {
 
     return (
         <div className={sUsList.mainWrapper}>
-            <div>{props.totalUsers}</div>
+            <div>Total registered {props.totalUsers} users</div>
             {mappedUsers}
             <div>{props.arr.length} users have been displayed</div>
             <button disabled={props.isLoading} className={sUsList.showMoreB} onClick={props.showMore}>SHOW MORE</button>
@@ -42,3 +32,13 @@ export const UsersList = (props: UsersListPropsType) => {
     )
 }
 
+export type UsersListPropsType = {
+    arr: OneUserType[]
+    totalUsers: number
+    showMore: () => void
+    isLoading: boolean
+    setIsLoadingAC: (isLoading: boolean) => void
+    usersAreLoading: number[]
+    onFollowTC:(userID:number)=>void
+    onUnfollowTC:(userID:number)=>void
+}

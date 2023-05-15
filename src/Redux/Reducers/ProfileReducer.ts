@@ -9,9 +9,10 @@ import {setAppStatus, setErrorMessage} from "./appReducer";
 
 const profileInitialState: ProfileStateType = {
     postsArr: [
-        // {id: v1(), text: 'post for feed', time: '00:01'},
-        // {id: v1(), text: 'first post for feed', time: '00:02'},
-        // {id: v1(), text: 'second post for feed', time: '00:03'},
+        {id: v1(), text: 'since the API does not yet have access to the feed, these posts were written by the GPT chat', time: '00:01'},
+        {id: v1(), text: 'Just had a great conversation with ChatGPT, my AI alter-ego! We talked about the meaning of life, the universe, and everything. The answer is still 42, by the way. #DeepThoughts #AIChat', time: '00:01'},
+        {id: v1(), text: 'I just finished reading a really interesting book about quantum mechanics. I don\'t pretend to understand all of it, but it\'s fascinating to think about how reality might be stranger than we can even imagine! #QuantumWonderland', time: '00:02'},
+        {id: v1(), text: 'Did you know that the average person spends six months of their life waiting for red lights to turn green? Time to start practicing your dance moves at stoplights! #TrafficJamJams', time: '00:03'},
     ],
     controlledInputPostValue: '',
     currentUser: {} as ProfileType,

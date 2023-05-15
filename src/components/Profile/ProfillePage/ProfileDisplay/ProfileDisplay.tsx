@@ -7,6 +7,7 @@ import s from './ProfileDisplay.module.css';
 import Accordion from 'react-bootstrap/Accordion';
 import EditableText from "../../../EditableText/EditableText";
 import Button from 'react-bootstrap/Button';
+import {ConnPostsList} from "../../PostList/ConnPostsList";
 
 
 export const ProfileDisplay = (props: ProfileDisplayPropsType) => {
@@ -55,6 +56,9 @@ export const ProfileDisplay = (props: ProfileDisplayPropsType) => {
                         </Accordion>
                     </div>
                 </Col>
+            </Row>
+            <Row>
+                <Col>  <ConnPostsList/></Col>
             </Row>
         </Container>
 

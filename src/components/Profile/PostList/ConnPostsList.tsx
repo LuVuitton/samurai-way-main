@@ -2,6 +2,7 @@ import {RootStateType} from "../../../Redux/Store";
 import {connect} from "react-redux";
 import React from "react";
 import {OnePostType} from "../../../Redux/Reducers/ProfileReducer";
+import {OnePostList} from "./OnePostList";
 
 
 class PostsList extends React.PureComponent<PostsListPropsType> {
@@ -12,7 +13,7 @@ class PostsList extends React.PureComponent<PostsListPropsType> {
 
 
     render() {
-        const mappedPosts = this.props.arr.map(e => <div key={e.id}>  {e.text} {e.time}</div>)
+        const mappedPosts = this.props.arr.map(e => <OnePostList userName={'me'} userImg={''} postText={e.text?e.text:''} postTime={e.time} key={e.id} />)
 
 
         return (
@@ -29,8 +30,6 @@ const mapStateToProps = (state: RootStateType) => {
         arr: state.profile.postsArr
     }
 }
-
-
 export const ConnPostsList = connect(mapStateToProps)(PostsList)
 
 

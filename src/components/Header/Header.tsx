@@ -10,10 +10,8 @@ export const Header = (props: HeaderPropsType) => {
             {/*<div>Header</div>*/}
 
             {props.isAuth
-                ? <p><span className={s.singedText}> singed in as</span> {props.userName}</p>
-                : <><p>get registered or use common test account credentials:</p>
-                    <p>Email: free@samuraijs.com</p>
-                    <p>Password: free</p></>
+                ?<p><span className={s.singedText}> signed in as</span> {props.userName}</p>
+            :'Come in'
             }
 
             {props.isAuth &&

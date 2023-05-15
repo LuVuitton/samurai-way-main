@@ -26,7 +26,7 @@ class App extends React.Component<AppPropsType, any> {
     }
 
     render() {
-        if (!this.props.isInitialized) return <Preloader/>
+        if (!this.props.isInitialized) return <div className={sApp.preloaderWrapper}> <Preloader/></div>
         return (
             <div className={sApp.mainWrapper}>
                 <div className={sApp.header}>

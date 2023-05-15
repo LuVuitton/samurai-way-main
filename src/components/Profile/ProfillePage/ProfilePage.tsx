@@ -3,6 +3,7 @@ import React, {ChangeEvent} from "react";
 import {ProfileEditor} from "./ProfileEditor/ProfileEditor";
 import {ProfileDisplay} from "./ProfileDisplay/ProfileDisplay";
 import {createField, InputForm} from "../../../formControls/formControls";
+import {Preloader} from "../../Other/Preloader";
 
 
 export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePageStateType> {
@@ -44,7 +45,7 @@ export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePa
 
         // проверяем что профайл дата не путой обьект
         if (!profileData.userId) {
-            return <>Loading...</>;
+            return <Preloader/>;
         }
 
         // собираем все ключи с обьекта контактс в массив и на основе этого мапим компонент
@@ -72,9 +73,6 @@ export class ProfilePage extends React.Component<ProfilePagePropsType, ProfilePa
 
         return (
             <>
-
-
-
                 {editMode
                     ? <ProfileEditor
                         onSubmit={this.formSubmitHandler}

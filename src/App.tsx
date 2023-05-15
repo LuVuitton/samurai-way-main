@@ -26,7 +26,7 @@ class App extends React.Component<AppPropsType, any> {
     }
 
     render() {
-        if (!this.props.isInitialized) return <div className={sApp.preloaderWrapper}> <Preloader/></div>
+        if (!this.props.isInitialized) return <div className={sApp.preloaderWrapper}><Preloader/></div>
         return (
             <div className={sApp.mainWrapper}>
                 <div className={sApp.header}>
@@ -38,27 +38,15 @@ class App extends React.Component<AppPropsType, any> {
                 <div className={sApp.profile}>
 
                     <Switch>
-                    <Route
-                        path='/samurai-way-main'
-                        render={() => <Redirect to={'/Profile'}/>}/>
-                        <Route
-                        path='/login'
-                        render={() => <LoginContainer/>}/>
-                    <Route
-                        path='/Messenger'
-                        render={() => <Messenger/>}/>
-                    <Route
-                        path='/Profile/:userID?'
-                        render={() => <Profile/>}/>
-                    <Route
-                        path='/Users'
-                        render={withSuspenseHOK(UsersClassContainer)}/>
-                    <Route
-                        render={() => <div>404 not found</div>}/>
+                        {/*<Route path='/Messenger' render={() => <Messenger />} />*/}
+                        <Route exact path='/' render={() => <Redirect to='/Profile' />} />
+                        <Route path='/Profile/:userID?' render={() => <Profile />} />
+                        <Route path='/Users' render={withSuspenseHOK(UsersClassContainer)} />
+                        <Route path='/login' render={() => <LoginContainer />} />
+                        <Route render={() => <div>404 not found</div>} />
                     </Switch>
                     {/*<ErrorSnackbar/>*/}
-                    </div>
-
+                </div>
             </div>
 
 

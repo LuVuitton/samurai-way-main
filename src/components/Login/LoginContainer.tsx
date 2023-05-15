@@ -8,12 +8,12 @@ import {Redirect} from "react-router-dom";
 
 
 class LoginContainer extends React.Component<LoginContainerPropsType, any> {
-
     onSubmit =(formData:any)=> {
         this.props.loginTC(formData)
     }
 
     render() {
+        console.log('LOGIN RERENDER')
         if (this.props.isAuth) return <Redirect to={'/profile'} />
         return <LoginReduxForm onSubmit={this.onSubmit}/>
     }

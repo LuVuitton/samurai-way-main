@@ -2,10 +2,13 @@ import {CheckForm, createField, InputForm, TextAreaForm} from "../../../../formC
 import {reduxForm} from "redux-form";
 import React from "react";
 import Button from 'react-bootstrap/Button';
+import s from './ProfileEditor.module.css'
+import Form from 'react-bootstrap/Form';
+
 
 
 const ProfileEdit = (props: any) => {
-    return <>
+    return <div className={s.mainWrapper}>
         <form onSubmit={props.handleSubmit}>
             <div>
                 <img src={
@@ -13,16 +16,23 @@ const ProfileEdit = (props: any) => {
                     || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJbd87QavjazVx5tJ9sLdp_p2oqfGoN1KUjw&usqp=CAU'
                 } alt="photo"/>
             </div>
-            <input type="file" onChange={props.onUploadHandler}/>
-            <div>{createField('Full Name', 'fullName', [], InputForm)}</div>
-
-
-            <div>{createField('', 'lookingForAJob', [], CheckForm, {label: 'Looking for a job'})}
+            <div className={s.item}>
+                {/*<input type="file" />*/}
+                <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label>change photo</Form.Label>
+                    <Form.Control type="file" onChange={props.onUploadHandler} style={{maxWidth:'300px'}}/>
+                </Form.Group>
             </div>
-            <div>
+            <div className={s.item}>
+                {createField('Full Name', 'fullName', [], InputForm)}
+            </div>
+            <div className={s.item}>
+                {createField('', 'lookingForAJob', [], CheckForm, {label: 'Looking for a job'})}
+            </div>
+            <div className={s.item}>
                 {createField('Description', 'lookingForAJobDescription', [], TextAreaForm, {label: 'Looking for a job description'})}
             </div>
-            <div>
+            <div className={s.item}>
                 {createField('About Me', 'aboutMe', [], TextAreaForm, {label: 'About ME'})}
             </div>
 
@@ -31,11 +41,11 @@ const ProfileEdit = (props: any) => {
                 <ul> {props.mappedContacts}</ul>
             </div>
 
-            <Button variant="light" type="submit">
+            <Button variant="outline-primary" type="submit">
                 save
             </Button>
         </form>
-    </>
+    </div>
 }
 
 

@@ -6,7 +6,7 @@
 .imgWrapper {
     width: 150px;
     height: 150px;
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     position: relative;
     overflow: hidden; /* скрываем части изображения, которые не помещаются в блок */
 }
@@ -22,13 +22,46 @@
 
 
 .textWrapper {
-    border: 1px solid red;
-    min-width: 300px;
+    /*border: 1px solid red;*/
+    min-width: 270px;
+    /*width: 100%;*/
     /*padding-right: 50px;*/
+}
+.textWrapper table {
+    border: none;
+}
+
+.textWrapper table th, table td {
+    border: none;
+}
+
+.textWrapper table td {
+    color: #646464;
 }
 
 .contactWrapper{
     max-width: 250px;
     /*border: 1px solid ;*/
+
+}
+
+.editBtnWrapper {
+
+    padding: 10px 0;
+}
+
+@media screen and (max-width: 555px){
+    .textWrapper {
+        padding: 15px 0;
+    }
+    .imgWrapper {
+        margin: auto;
+    }
+    .editBtnWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
 
 }

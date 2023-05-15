@@ -45,9 +45,9 @@ class EditableText extends React.Component<EditableTextPropsType, EditableTextLo
         return (
             <>
                 {!this.state.editMode &&
-                    <div className={s.normalText}>
+                    <div className={s.normalText}  onClick={this.turnOnEditModeHandler}>
                         <span
-                            onClick={this.turnOnEditModeHandler}>{this.props.statusMessage || 'status is empty...'}
+                           >{this.props.statusMessage || 'status is empty...'}
                         </span>
                     </div>
                 }

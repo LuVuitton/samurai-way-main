@@ -14,3 +14,22 @@
     color: rgba(0, 0, 0, 0.21);
 
 }
+
+
+.btnWrapper {
+    display: block;
+}
+
+.burgerMenuWrapper {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .btnWrapper {
+        display: none;
+    }
+
+    .burgerMenuWrapper {
+        display: block;
+    }
+}

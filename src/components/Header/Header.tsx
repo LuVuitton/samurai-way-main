@@ -1,4 +1,5 @@
 import s from './Header.module.css'
+import {BurgerMenu} from "../BurgerMenu/BurgerMenu";
 import Button from 'react-bootstrap/Button';
 
 
@@ -6,19 +7,25 @@ export const Header = (props: HeaderPropsType) => {
 
     return (
         <div className={s.mainWrapper}>
-
-            {/*<div>Header</div>*/}
-
             {props.isAuth
-                ?<p><span className={s.singedText}> signed in as</span> {props.userName}</p>
-            :'Come in'
+                ? <p><span className={s.singedText}> signed in as</span> {props.userName}</p>
+                : 'Come in'
             }
 
             {props.isAuth &&
-                <Button
-                    variant="light"
-                    onClick={props.onClickHandler}
-                    disabled={props.isLoading}>Sign out</Button>}
+                <>
+                    <div className={s.btnWrapper}>
+                        <Button
+                            variant="light"
+                            onClick={props.onClickHandler}
+                            disabled={props.isLoading}>Sign out
+                        </Button>
+                    </div>
+                    <div className={s.burgerMenuWrapper}>
+                        <BurgerMenu signOutHandler={props.onClickHandler}/>
+                    </div>
+                </>
+            }
         </div>
     )
 }

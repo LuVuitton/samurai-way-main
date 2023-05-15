@@ -4,15 +4,28 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../Redux/Store";
 import sReForm from '../ReusInputButton/ReForm.module.css'
 import {addPostAC, updatePostInputValueAC} from "../../Redux/Reducers/ProfileReducer";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import s from './ChatInput.module.css'
+
 
 const ChatInput = (props: ReFormPropsType) => {
-    return <>
-        <input type={'text'} onChange={props.onChangeHandler}
-               value={props.inputValue}
-               onKeyPress={props.onKeyPressHandler}
-        />
-        <button className={sReForm.reButton} onClick={props.onclickHandler}>ADD</button>
-    </>
+    return (
+        <div className={s.mainWrapper}>
+            <FloatingLabel controlId="floatingTextarea2" label="Add post"  className={s.inputWrapper}>
+                <Form.Control
+                    as="textarea"
+                    placeholder="Leave a comment here"
+                    style={{ height: '65px'}}
+                    onChange={props.onChangeHandler}
+                    value={props.inputValue}
+                    onKeyPress={props.onKeyPressHandler}
+                />
+            </FloatingLabel>
+            <Button variant="light" className={sReForm.reButton} onClick={props.onclickHandler}>ADD</Button>
+        </div>
+    )
 }
 
 
@@ -25,7 +38,12 @@ const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
     return {
         onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => dispatch(updatePostInputValueAC(e.currentTarget.value)),
         onclickHandler: () => dispatch(addPostAC()),
-        onKeyPressHandler: (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && dispatch(addPostAC())  // if (e.key==='Enter'){console.log(e.key)}
+        onKeyPressHandler: (e: KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                dispatch(addPostAC())
+                e.currentTarget.blur(); // Снятие фокуса с инпута
+            }
+        }  // if (e.key==='Enter'){console.log(e.key)}
     }
 }
 

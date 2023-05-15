@@ -5,9 +5,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import s from './ProfileDisplay.module.css';
 import Accordion from 'react-bootstrap/Accordion';
-import EditableText from "../../../EditableText/EditableText";
-import Button from 'react-bootstrap/Button';
 import {ConnPostsList} from "../../PostList/ConnPostsList";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import ChatInput from "../../ChatInput";
+import Button from "react-bootstrap/Button";
 
 
 export const ProfileDisplay = (props: ProfileDisplayPropsType) => {
@@ -22,31 +23,25 @@ export const ProfileDisplay = (props: ProfileDisplayPropsType) => {
                             || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJbd87QavjazVx5tJ9sLdp_p2oqfGoN1KUjw&usqp=CAU'
                         } alt="photo"/>
                     </div>
+                    <div className={s.editBtnWrapper}>
+                        {props.isOwner &&
+                            <Button variant="light" onClick={props.toEditModeHandler}>edit profile
+                                page</Button>}
+                    </div>
                 </Col>
 
                 <Col xs lg="7">
-
                     <div className={s.textWrapper}>
-                        <div>
-                            <strong>Status:</strong>
-                            {props.isOwner
-                                ? <EditableText statusMessage={props.statusMessage}/>
-                                : (props.statusMessage || 'status is empty')}
-                            {props.isOwner &&
-                                <Button variant="light" onClick={props.toEditModeHandler}>edit profile page</Button>}
-                        </div>
-                        <div><strong>Full name:</strong> {props.profileData.fullName}</div>
-
-                        <p><strong>Looking for a job:</strong> {props.profileData.lookingForAJob ? 'yes' : 'no'}</p>
-                        {props.profileData.lookingForAJob && (
-                            <p><strong>Description:</strong> {props.profileData.lookingForAJobDescription}</p>
-                        )}
+                        <ProfileInfo
+                            profileData={props.profileData}
+                            isOwner={props.isOwner}
+                            statusMessage={props.statusMessage}/>
                     </div>
                 </Col>
 
                 <Col>
                     <div className={s.contactWrapper}>
-                        <Accordion defaultActiveKey="0">
+                        <Accordion defaultActiveKey={null}>
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>Contact</Accordion.Header>
                                 <Accordion.Body>
@@ -56,9 +51,13 @@ export const ProfileDisplay = (props: ProfileDisplayPropsType) => {
                         </Accordion>
                     </div>
                 </Col>
+
             </Row>
             <Row>
-                <Col>  <ConnPostsList/></Col>
+                <ChatInput/>
+            </Row>
+            <Row>
+                <Col> <ConnPostsList/></Col>
             </Row>
         </Container>
 
@@ -74,3 +73,5 @@ type ProfileDisplayPropsType = {
     statusMessage: string
     toEditModeHandler: () => void
 }
+
+

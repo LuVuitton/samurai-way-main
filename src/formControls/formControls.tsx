@@ -78,7 +78,7 @@ export const TextAreaForm = ({input, meta, label, ...props}: any) => {
                 <Form.Control
                     as="textarea"
                     placeholder="Leave a comment here"
-                    style={{ height: '100px', width:'400px' }}
+                    style={{ height: '100px', maxWidth:'400px' }}
                     {...input} {...props}
                 />
             </FloatingLabel>

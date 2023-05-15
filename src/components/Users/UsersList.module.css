@@ -40,13 +40,20 @@
     background-color: rgba(119, 136, 153, 0.5);
     margin-bottom: 5px;
 }
-
-.showMoreB {
-    width: 100px;
-    height: 50px;
-    margin: 10px;
+.btnWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
-
+.btn {
+    width: 80%;
+    height: 50px;
+    /*margin: 10px;*/
+}
+.textTotal {
+    text-align: center;
+}
 
 .cardWrapper {
     /*display: flex;*/

@@ -1,8 +1,8 @@
-import sUsList from "./UsersList.module.css";
+import s from "./UsersList.module.css";
 import React from "react";
 import {User} from "./User";
 import {OneUserType} from "../../Redux/Reducers/UsersReducer";
-
+import Button from 'react-bootstrap/Button';
 
 
 export const UsersList = (props: UsersListPropsType) => {
@@ -23,11 +23,14 @@ export const UsersList = (props: UsersListPropsType) => {
     })
 
     return (
-        <div className={sUsList.mainWrapper}>
-            <div>Total registered {props.totalUsers} users</div>
+        <div className={s.mainWrapper}>
+            <div className={s.textTotal}>Total registered {props.totalUsers} users</div>
             {mappedUsers}
-            <div>{props.arr.length} users have been displayed</div>
-            <button disabled={props.isLoading} className={sUsList.showMoreB} onClick={props.showMore}>SHOW MORE</button>
+            <div className={s.textTotal}>{props.arr.length} users have been displayed</div>
+            <div className={s.btnWrapper}>
+                <Button variant="light" disabled={props.isLoading} className={s.btn} onClick={props.showMore}>SHOW
+                    MORE</Button>
+            </div>
         </div>
     )
 }
@@ -39,6 +42,6 @@ export type UsersListPropsType = {
     isLoading: boolean
     setIsLoadingAC: (isLoading: boolean) => void
     usersAreLoading: number[]
-    onFollowTC:(userID:number)=>void
-    onUnfollowTC:(userID:number)=>void
+    onFollowTC: (userID: number) => void
+    onUnfollowTC: (userID: number) => void
 }
